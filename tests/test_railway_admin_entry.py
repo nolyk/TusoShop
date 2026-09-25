@@ -1,6 +1,7 @@
 import os
 import subprocess
 import sys
+from pathlib import Path
 from types import SimpleNamespace
 from unittest.mock import AsyncMock
 
@@ -10,6 +11,10 @@ from tgbot.data.config import BotConfig, BotTexts
 from tgbot.data.filters import IsAdmin
 from tgbot.handlers import adminRouter
 from tgbot.handlers.admins.main_admins import admin_command
+
+
+def test_asyncio_dependency_is_explicit():
+    assert 'SQLAlchemy[asyncio]==2.0.54' in Path('requirements.txt').read_text().splitlines()
 
 
 @pytest.mark.asyncio

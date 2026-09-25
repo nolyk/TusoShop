@@ -11,7 +11,7 @@ colorama
 loguru
 nest-asyncio
 requests
-SQLAlchemy
+SQLAlchemy[asyncio]==2.0.54
 YooMoney==0.1.0
 cachetools
 telyx==0.0.1

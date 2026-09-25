@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="hy">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#05060a">
+  <title>AutoShop</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22><text y=%22.9em%22 font-size=%2290%22>✦</text></svg>">
+  <link rel="preload" href="/static/fonts/Montserrat%5Bwght%5D.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="stylesheet" href="/static/styles.css?v=20260920-all-hy">
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+</head>
+<body>
+  <div class="ambient" aria-hidden="true"><i></i><i></i><i></i></div>
+  <main class="shell">
+    <header class="hero">
+      <div class="brand-mark">A</div>
+      <div class="hero-copy">
+        <p class="eyebrow">AUTOSHOP</p>
+        <h1 id="greeting">Բարի գալուստ</h1>
+      </div>
+      <span class="status" id="status"><i></i><b>Առցանց</b></span>
+    </header>
+
+    <section class="wallet-card" aria-label="Մնացորդ">
+      <div class="wallet-glow"></div>
+      <div class="wallet-top"><span>Հասանելի մնացորդ</span><span class="secure"><span data-icon="shield-check"></span> Պաշտպանված</span></div>
+      <strong id="balance">—</strong>
+      <div class="wallet-bottom">
+        <span id="wallet-currency">Հիմնական հաշիվ</span>
+        <button id="topup" type="button"><span data-icon="plus"></span> Լիցքավորել</button>
+      </div>
+    </section>
+
+    <div class="view" id="view-shop">
+      <section class="mini-metrics" aria-label="Առավելություններ">
+        <div><span data-icon="zap"></span><b>Հարմար</b><small>Արագ ընտրություն</small></div>
+        <div><span data-icon="shield-check"></span><b>Հուսալի</b><small>Պատվերի պաշտպանություն</small></div>
+        <div><span data-icon="clock-3"></span><b>Միշտ</b><small>Ամեն օր</small></div>
+      </section>
+
+      <section class="section-head">
+        <div><p class="eyebrow">ԿԱՏԱԼՈԳ</p><h2 id="catalog-title">Կատալոգ</h2></div>
+        <span class="section-count" id="product-count">0 ապրանք</span>
+      </section>
+      <button type="button" id="categories-back" class="category-back" hidden>← Վերադառնալ բաժիններին</button>
+      <div class="category-grid" id="categories" aria-label="Ապրանքների բաժիններ"></div>
+      <div class="filters" id="subcategories" aria-label="Ենթաբաժիններ" hidden></div>
+      <section class="product-grid" id="products" aria-live="polite">
+        <article class="skeleton"></article><article class="skeleton"></article>
+      </section>
+    </div>
+
+    <div class="view" id="view-digital" hidden>
+      <section class="page-title"><p class="eyebrow">TELEGRAM</p><h2>Stars & Premium</h2><p>Ձեզ համար կամ նվեր։ Ընտրեք ապրանքն ու ստացողին։</p></section>
+      <section class="product-grid" id="digital-products" aria-live="polite"></section>
+    </div>
+
+    <div class="view" id="view-history" hidden>
+      <section class="page-title"><p class="eyebrow">ՊԱՏՄՈՒԹՅՈՒՆ</p><h2>Ձեր պատվերները</h2><p>Խանութի և Stars & Premium-ի բոլոր գնումները։</p></section>
+      <section class="order-list" id="orders" aria-live="polite"><div class="loader"></div></section>
+    </div>
+
+    <div class="view" id="view-profile" hidden>
+      <section class="profile-card">
+        <div class="profile-cover"><i></i><i></i></div>
+        <div class="profile-main">
+          <div class="avatar big" id="profile-avatar">A</div>
+          <div class="profile-meta">
+            <h2 id="profile-name">Telegram օգտատեր</h2>
+            <p id="profile-username">—</p>
+          </div>
+          <span class="verified-badge" id="profile-role">Հաճախորդ</span>
+        </div>
+        <div class="profile-stats">
+          <div><b id="stat-total-refill">0 ₽</b><span>Լիցքավորված</span></div>
+          <div><b id="stat-ref-count">0</b><span>Հրավիրվածներ</span></div>
+          <div><b id="stat-refills">0</b><span>Լիցքավորումներ</span></div>
+        </div>
+      </section>
+
+      <section class="info-card">
+        <div class="info-heading"><h3>Հաշվի տվյալներ</h3><span id="profile-language">Հայերեն</span></div>
+        <button class="info-row copy-row" id="copy-id" type="button"><span class="row-icon" data-icon="id-card"></span><span><small>Telegram ID</small><b id="profile-id">—</b></span><em>Պատճենել</em></button>
+        <div class="info-row"><span class="row-icon" data-icon="at-sign"></span><span><small>Username</small><b id="profile-user-detail">—</b></span></div>
+        <div class="info-row"><span class="row-icon" data-icon="calendar-days"></span><span><small>Գրանցման ամսաթիվ</small><b id="stat-reg-date">—</b></span></div>
+        <div class="info-row"><span class="row-icon" data-icon="user-round-plus"></span><span><small>Ձեզ հրավիրել է</small><b id="profile-referrer">Նշված չէ</b></span></div>
+      </section>
+
+      <section class="info-card">
+        <div class="info-heading"><h3>Ձեր մնացորդները</h3><span>Թարմացված</span></div>
+        <div class="profile-balances" id="profile-balances"></div>
+      </section>
+    </div>
+  </main>
+
+  <nav class="tabbar" aria-label="Հիմնական ընտրացանկ">
+    <button class="active" type="button" data-tab="shop"><span class="nav-icon" data-icon="house"></span><b>Խանութ</b></button>
+    <button type="button" data-tab="digital"><span class="nav-icon" data-icon="star"></span><b>Stars/Premium</b></button>
+    <button type="button" data-tab="history"><span class="nav-icon" data-icon="clock-3"></span><b>Պատմություն</b></button>
+    <button type="button" data-tab="profile"><span class="nav-icon" data-icon="user-round"></span><b>Իմ էջը</b></button>
+  </nav>
+
+  <div class="sheet-backdrop" id="sheet-backdrop" hidden>
+    <section class="sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-title">
+      <div class="sheet-handle"></div>
+      <button class="sheet-close" id="sheet-close" type="button" aria-label="Փակել"><span data-icon="x"></span></button>
+      <div class="sheet-icon" id="sheet-icon"><span data-icon="sparkles"></span></div>
+      <h2 id="sheet-title"></h2><p id="sheet-subtitle"></p>
+      <div class="sheet-content" id="sheet-content">
+        <div class="option-grid" id="sheet-options"></div>
+      </div>
+      <button class="primary-action" id="sheet-continue" type="button" disabled>Շարունակել</button>
+      <p class="sheet-note" id="sheet-note">Գործողությունը կշարունակվի բոտի հետ զրույցում</p>
+    </section>
+  </div>
+
+  <div class="toast" id="toast" hidden><span data-icon="check"></span><b id="toast-text"></b></div>
+  <script src="/static/icons.js?v=20260919-1"></script>
+  <script src="/static/app.js?v=20260920-all-hy"></script>
+</body>
+</html>

@@ -1,0 +1,2 @@
+py updateDB.py
+pause

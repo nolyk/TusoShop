@@ -1,0 +1,1 @@
+"""AutoShop Telegram Mini App."""

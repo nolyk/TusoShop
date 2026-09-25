@@ -1,0 +1,15 @@
+.env
+.env.*
+!.env.example
+*.db
+*.db-*
+*.sqlite*
+.pytest_cache/
+.railway_venv/
+delivery/
+*.log
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.webapp_venv/

@@ -63,7 +63,7 @@ class Language:
         channel_s = ('канал', 'канала', 'каналов') # не трогать скобки
         person_s = ('человек', "человека", "человек")
 
-        main_menu = """<b><tg-emoji emoji-id='5260399854500191689'>👤</tg-emoji> {username}, добро пожаловать в <b>GS AutoShop</b>!
+        main_menu = """<b><tg-emoji emoji-id='5260399854500191689'>👤</tg-emoji> {username}, добро пожаловать в <b>ԹույնShop</b>!
 
 <tg-emoji emoji-id="5231102735817918643">👇</tg-emoji> Выберите раздел в меню:</b>"""
         bot_will_not_respond = "❗ Бот не будет отвечать до прекращения спама."

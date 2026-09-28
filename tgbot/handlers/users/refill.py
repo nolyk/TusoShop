@@ -1,6 +1,6 @@
 ﻿from aiogram import F
 from aiogram.filters import StateFilter
-from aiogram.types import Message, CallbackQuery, LabeledPrice, PreCheckoutQuery
+from aiogram.types import Message, CallbackQuery, LabeledPrice, PreCheckoutQuery, InlineKeyboardMarkup, InlineKeyboardButton
 from aiogram.fsm.context import FSMContext
 
 from tgbot.data.loader import bot, userRouter, adminRouter
@@ -62,6 +62,7 @@ async def success_refill(BotTexts, call: CallbackQuery, way, amount, p_id, user_
         if await DB.get_refill(receipt=p_id, is_finished=True):
             return await call.answer(BotTexts.TEXTS.error_refill)
 
+        customer_texts = await utils.get_language(user_id)
         user = await DB.get_user(user_id=user_id)
         settings = await DB.get_settings()
         refill = await DB.get_refill(p_id)
@@ -91,13 +92,13 @@ async def success_refill(BotTexts, call: CallbackQuery, way, amount, p_id, user_
     
         if way != 'custom_pay_method':
             await call.message.delete()
-            await call.message.answer(BotTexts.TEXTS.success_refill_text.format(
-                way=BotTexts.TEXTS.payments_names[way], 
+            await call.message.answer(customer_texts.TEXTS.success_refill_text.format(
+                way=customer_texts.TEXTS.payments_names[way], 
                 amount=pay_amount, 
                 receipt=p_id, 
                 curr=BotConfig.CURRENCIES[curr.value]['sign']))
         else:
-            await bot.send_message(user_id, BotTexts.TEXTS.success_refill_text.format(
+            await bot.send_message(user_id, customer_texts.TEXTS.success_refill_text.format(
                 way=settings.custom_pay_method, 
                 amount=pay_amount, 
                 receipt=p_id, 
@@ -447,7 +448,7 @@ async def send_stars_refill_invoice(msg: Message, BotTexts, amount_text: str):
     receipt = str(utils.get_unix(True))
     payload = f"stars:{msg.from_user.id}:{amount}:{settings.currency.value}:{receipt}"
     await msg.answer_invoice(
-        title="GS AutoShop",
+        title="ԹույնShop",
         description=f"Հաշվեկշռի լիցքավորում՝ {amount}{BotConfig.CURRENCIES[settings.currency.value]['sign']}",
         payload=payload,
         currency="XTR",
@@ -627,10 +628,10 @@ async def enter_receipt_for_custom_pay_method(msg: Message, state: FSMContext, B
     if refill:
         await state.update_data(photo=msg.photo[-1].file_id)
         await msg.reply(BotTexts.TEXTS.confirm_send_receipt_photo, 
-                        reply_markup=BotButtons.ADMIN_INLINE.confirm(
-                            f"send_receipt_to_check:yes",
-                            f"send_receipt_to_check:no",
-                        ).as_markup())
+                        reply_markup=InlineKeyboardMarkup(inline_keyboard=[[
+                            InlineKeyboardButton(text="Այո", callback_data="send_receipt_to_check:yes"),
+                            InlineKeyboardButton(text="Ոչ", callback_data="send_receipt_to_check:no"),
+                        ]]))
     
     
 @userRouter.callback_query(StateFilter(UserRefills.enter_receipt_for_custom_pay_method), 

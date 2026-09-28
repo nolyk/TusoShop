@@ -13,7 +13,7 @@ class Language:
         faq = "ՀՏՀ"
         topup_balance = "Լիցքավորել հաշվեկշիռը"
         back = "Հետ"
-        contests = "🎁 Խաղարկություններ"
+        contests = "Խաղարկություններ"
         faq_chat_inl = "💎 Զրույց"
         faq_news_inl = "📩 Նորություններ"
         send_payment_to_check = "✅ Ուղարկել վճարումը ստուգման"
@@ -21,7 +21,7 @@ class Language:
         activate_promo = "Պրոմոկոդ"
         ref_system = "Հրավիրումների համակարգ"
         purchases_history = "Պատմություն"
-        support_text = "Գրել աջակցությանը"
+        support_text = 'Գրել աջակցությանը'
         refill_link_inl = "💵 Անցնել վճարմանը"
         refill_check_inl = "💎 Ստուգել վճարումը"
         cancel = "❌ Չեղարկել"
@@ -30,7 +30,7 @@ class Language:
         nolimit = "Անսահմանափակ"
         pcs = "հատ"
         contest_enter = "🎉 Մասնակցել"
-        you_not_completed_all_conditions = "❗ Դուք չեք կատարել բոլոր պայմանները. կատարված է {count}-ը {count_conditions}-ից"
+        you_not_completed_all_conditions = 'Դուք չեք կատարել բոլոր պայմանները. կատարված է {count}-ը {count_conditions}-ից'
         change_language = "🌐 Փոխել լեզուն"
         check_sub = "✅ Ստուգել"
 
@@ -51,32 +51,32 @@ class Language:
         purchase_s = ("գնում",) * 3
         channel_s = ("ալիք",) * 3
         person_s = ("մարդ",) * 3
-        main_menu = "<b><tg-emoji emoji-id='5260399854500191689'>👤</tg-emoji> {username}, բարի գալուստ <b>GS AutoShop</b>։\n\n<tg-emoji emoji-id='5231102735817918643'>👇</tg-emoji> Ընտրեք բաժինը ցանկից՝</b>"
+        main_menu = "<b><tg-emoji emoji-id='5260399854500191689'>👤</tg-emoji> {username}, բարի գալուստ <b>ԹույնShop</b>։\n\n<tg-emoji emoji-id='5231102735817918643'>👇</tg-emoji> Ընտրեք բաժինը ցանկից՝</b>"
         bot_will_not_respond = "❗ Բոտը չի պատասխանի, մինչև չդադարեցնեք սպամը։"
         please_dont_spam = "❗ Խնդրում ենք չուղարկել սպամ։"
-        profile_text = """<b><tg-emoji emoji-id="5327904946413121515">©️</tg-emoji> Ձեր էջը՝
+        profile_text = """<b><tg-emoji emoji-id="6183468706723537731">👤</tg-emoji> Ձեր էջը՝
 
-<tg-emoji emoji-id="5258011929993026890">👤</tg-emoji> Օգտատեր՝ {username}
-<tg-emoji emoji-id="5936017305585586269">🪪</tg-emoji> ID՝ <code>{user_id}</code>
+<tg-emoji emoji-id="6181478659396739452">👤</tg-emoji> Օգտատեր՝ {username}
+<tg-emoji emoji-id="6181548602939155001">👤</tg-emoji> ID՝ <code>{user_id}</code>
 
-<tg-emoji emoji-id="5258204546391351475">💰</tg-emoji> Հաշվեկշիռ՝ <code>{balance}{curr}</code>
-<tg-emoji emoji-id="5967390100357648692">💵</tg-emoji> Ընդամենը լիցքավորված՝ <code>{total_refill}{curr}</code>
+<tg-emoji emoji-id="6181423645160646167">👛</tg-emoji> Հաշվեկշիռ՝ <code>{balance}{curr}</code>
+<tg-emoji emoji-id="6183559145849890138">🪙</tg-emoji> Ընդամենը լիցքավորված՝ <code>{total_refill}{curr}</code>
 
-<tg-emoji emoji-id="5796440171364749940">📌</tg-emoji> Գրանցման ամսաթիվ՝ <code>{reg_date}</code></b>"""
+<tg-emoji emoji-id="6181440610281464581">✍</tg-emoji> Գրանցման ամսաթիվ՝ <code>{reg_date}</code></b>"""
         support_is_not_provided = "<b>💻 Այս պահին աջակցությունը հասանելի չէ։</b>"
-        support_text = "<b>💻 Աջակցությանը գրելու համար սեղմեք ներքևի կոճակը՝</b>"
+        support_text = '<b><tg-emoji emoji-id="6183774199157367778">🆘</tg-emoji> Աջակցությանը գրելու համար սեղմեք ներքևի կոճակը՝</b>'
         choose_language = "<b>❗ Ընտրեք լեզուն՝</b>"
         refill_check_no = "❌ Վճարումը չի գտնվել"
         payments_names = Russian.Texts.payments_names
         payments_names = {**Russian.Texts.payments_names, "stars": "⭐ Telegram Stars"}
-        choose_refill_method = "<b>💰 Ընտրեք լիցքավորման եղանակը՝</b>"
+        choose_refill_method = '<b><tg-emoji emoji-id="6181612022426247965">💸</tg-emoji> Ընտրեք լիցքավորման եղանակը՝</b>'
         payment_comment_api = "@{bot_name} բոտում {user_name} օգտատիրոջ հաշվի լիցքավորում՝ {pay_amount}{curr}"
         refill_was_rejected = "<b>❌ Ձեր {amount}{curr} լիցքավորումը մերժվել է։</b>"
-        send_receipt_photo = "<b>🧾 Ուղարկեք փոխանցման անդորրագրի լուսանկարը՝</b>"
+        send_receipt_photo = '<b><tg-emoji emoji-id="6181523988481581415">📋</tg-emoji> Ուղարկեք փոխանցման անդորրագրի լուսանկարը՝</b>'
         confirm_send_receipt_photo = "<b>❓ Վստա՞հ եք, որ ցանկանում եք այս անդորրագիրն ուղարկել ստուգման։</b>"
         create_refill_text = "<b>⭐ Լիցքավորում՝ <code>{paymentMethod}</code>\n💰 Գումար՝ <code>{pay_amount}{curr}</code>\n🆔 Վճարման ID՝ <code>{pay_id}</code>\n⌛ Վճարեք մինչև <code>{under_date}</code>\n💎 Վճարելու համար սեղմեք ներքևի կոճակը՝</b>"
-        cancel_create_refill_text = "<b>❗ Դուք արդեն ունեք ակտիվ լիցքավորում՝\n\n⭐ Եղանակ՝ <code>{paymentMethod}</code>\n💰 Գումար՝ <code>{pay_amount}{curr}</code>\n🆔 Վճարման ID՝ <code>{pay_id}</code>\n⌛ Վճարեք մինչև <code>{under_date}</code>\n💎 Վճարելու համար սեղմեք ներքևի կոճակը՝</b>"
-        custom_pay_transfer_details = """<b>🏦 Փոխանցման տվյալներ</b>
+        cancel_create_refill_text = '<b><tg-emoji emoji-id="6181207762924478466">📝</tg-emoji> Դուք արդեն ունեք ակտիվ լիցքավորում՝\n\n<tg-emoji emoji-id="6181551167034631404">💳</tg-emoji> Եղանակ՝ <code>{paymentMethod}</code>\n<tg-emoji emoji-id="6183559145849890138">🪙</tg-emoji> Գումար՝ <code>{pay_amount}{curr}</code>\n<tg-emoji emoji-id="6181548602939155001">👤</tg-emoji> Վճարման ID՝ <code>{pay_id}</code>\n<tg-emoji emoji-id="6181377573046461008">⌛️</tg-emoji> Վճարեք մինչև <code>{under_date}</code>\n💎 Վճարելու համար սեղմեք ներքևի կոճակը՝</b>'
+        custom_pay_transfer_details = """<b><tg-emoji emoji-id='6181248419084903585'>💰</tg-emoji> Փոխանցման տվյալներ</b>
 
 <b>Բանկ՝</b> <code>{bank}</code>
 <b>Ստացող՝</b> <code>{holder}</code>
@@ -85,11 +85,11 @@ class Language:
 Փոխանցումից հետո սեղմեք ստուգման կոճակը։"""
         custom_pay_no_cards = "<b>❌ Փոխանցման քարտերը դեռ կարգավորված չեն։ Դիմեք աջակցությանը։</b>"
         create_refill_text_custom_pay_method = "<b>⭐ Լիցքավորում՝ <code>{paymentMethod}</code>\n💰 Գումար՝ <code>{pay_amount}{curr}</code>\n🆔 Վճարման ID՝ <code>{pay_id}</code>\n⌛ Վճարեք մինչև <code>{under_date}</code></b>\n\n{custom_pay_method_text}"
-        cancel_create_refill_text_custom_pay_method = "<b>❗ Դուք արդեն ունեք ակտիվ լիցքավորում՝\n\n⭐ Եղանակ՝ <code>{paymentMethod}</code>\n💰 Գումար՝ <code>{pay_amount}{curr}</code>\n🆔 Վճարման ID՝ <code>{pay_id}</code>\n⌛ Վճարեք մինչև <code>{under_date}</code></b>\n\n{custom_pay_method_text}"
+        cancel_create_refill_text_custom_pay_method = '<b><tg-emoji emoji-id="6181207762924478466">📝</tg-emoji> Դուք արդեն ունեք ակտիվ լիցքավորում՝\n\n<tg-emoji emoji-id="6181551167034631404">💳</tg-emoji> Եղանակ՝ <code>{paymentMethod}</code>\n<tg-emoji emoji-id="6183559145849890138">🪙</tg-emoji> Գումար՝ <code>{pay_amount}{curr}</code>\n<tg-emoji emoji-id="6181548602939155001">👤</tg-emoji> Վճարման ID՝ <code>{pay_id}</code>\n<tg-emoji emoji-id="6181377573046461008">⌛️</tg-emoji> Վճարեք մինչև <code>{under_date}</code></b>\n\n{custom_pay_method_text}'
         enter_amount_of_refill = "<b>❗ Մուտքագրեք լիցքավորման գումարը՝</b>"
         choose_crypto = "<b>⚙️ Ընտրեք կրիպտոարժույթը՝</b>"
         error_refill = "❌ Սխալ. հաշվեկշիռն արդեն լիցքավորված է։"
-        success_refill_text = "<b>⭐ Ձեր հաշվեկշիռը հաջողությամբ լիցքավորվել է <code>{amount}{curr}</code>-ով։\n💎 Եղանակ՝ <code>{way}</code>\n🧾 Անդորրագիր՝ <code>{receipt}</code></b>"
+        success_refill_text = '<b><tg-emoji emoji-id="6181423645160646167">👛</tg-emoji> Ձեր հաշվեկշիռը հաջողությամբ լիցքավորվել է <code>{amount}{curr}</code>-ով։\n<tg-emoji emoji-id="6181612022426247965">💸</tg-emoji> Եղանակ՝ <code>{way}</code>\n<tg-emoji emoji-id="6181523988481581415">📋</tg-emoji> Անդորրագիր՝ <code>{receipt}</code></b>'
         yes_refill_ref = "<b>💎 Ձեր հրավիրած {name} օգտատերը լիցքավորել է հաշվեկշիռը <code>{amount}{cur}</code>-ով, և ձեզ փոխանցվել է <code>{ref_amount}{cur}</code>։</b>"
         yes_cancel_refill = "<b>❌ Լիցքավորումը չեղարկվել է։</b>"
         no_int_amount = "<b>❗ Լիցքավորման գումարը պետք է թիվ լինի։</b>"
@@ -119,10 +119,10 @@ class Language:
         yes_promocode = "<b>✅ Պրոմոկոդն ակտիվացվել է. ստացել եք <code>{discount}{curr}</code>։</b>"
         yes_uses_promocode = "<b>❌ Դուք արդեն ակտիվացրել եք այս պրոմոկոդը։</b>"
         no_cats = "<b>❌ Այս պահին կատեգորիաներ չկան։</b>"
-        available_cats = "<b>🛒 Հասանելի կատեգորիաները՝</b>"
-        current_cat = "<b>🚀 Ընթացիկ կատեգորիա՝ <code>{name}</code></b>"
+        available_cats = '<b><tg-emoji emoji-id="5472189467869619770">🛒</tg-emoji> Հասանելի կատեգորիաները <tg-emoji emoji-id="6181530044385468714">⬇</tg-emoji></b>'
+        current_cat = '<b><tg-emoji emoji-id="6181208703522317605">🛍</tg-emoji> Ընթացիկ կատեգորիա՝ <code>{name}</code></b>'
         no_products = "❌ Այս պահին ապրանքներ չկան։"
-        open_position_text = "<b>💎 Կատեգորիա՝ <code>{cat_name}</code>\n\n🛍️ Ապրանք՝ <code>{pos_name}</code>\n💰 Գին՝ <code>{price}{cur}</code>\n⚙️ Հասանելի քանակ՝ <code>{items}</code></b>\n\n{desc}"
+        open_position_text = '<b><tg-emoji emoji-id="5472189467869619770">🛒</tg-emoji> Կատեգորիա՝ <code>{cat_name}</code>\n\n<tg-emoji emoji-id="5472382354850881695">🛍</tg-emoji> Ապրանք՝ <code>{pos_name}</code>\n<tg-emoji emoji-id="5474129800949964546">🪙</tg-emoji> Գին՝ <code>{price}{cur}</code>\n<tg-emoji emoji-id="5471946243871645459">🔶</tg-emoji> Հասանելի քանակ՝ <code>{items}</code></b>\n\n{desc}'
         no_balance_for_buying = "❗ Գնելու համար բավարար միջոցներ չունեք։ Լիցքավորեք հաշվեկշիռը։"
         confirm_buy_products = "<b>❓ Վստա՞հ եք, որ ցանկանում եք գնել ապրանքը։</b>\n\n- Ապրանք՝ <code>{position_name}</code>\n- Քանակ՝ <code>{count} հատ</code>\n- Ընդհանուր գումար՝ <code>{price}{curr}</code>"
         enter_count_items_for_buy = "<b>❗ Մուտքագրեք գնվող ապրանքների քանակը՝</b>\n⚠️ <code>1</code>-ից <code>{items}</code>\n\n- Ապրանք՝ <code>{pos_name}</code> — <code>{price}{curr}</code>\n- Ձեր հաշվեկշիռը՝ <code>{balance}{curr}</code>"
@@ -138,10 +138,10 @@ class Language:
         your_items = "<b>🛒 Ձեր ապրանքները</b>"
         no_contests = "❌ Այս պահին խաղարկություններ չկան։"
         choose_contest = "<b>🎉 Ընտրեք խաղարկությունը՝</b>"
-        contest_text = "<b>🎉 Խաղարկություն #{contest_id}\n\n💰 Մրցանակ՝ <code>{prize}{cur}</code>\n🕒 Ավարտին մնացել է՝ <code>{end_time}</code>\n🎉 {winners_num} {winners}\n👥 {members_num} {members}</b>"
-        conditions = "\n\n<b>❗ Պայմաններ՝</b>\n\n"
-        conditions_refills = "<b>💳 {num} {refills} — {status}</b>\n"
-        conditions_purchases = "<b>🛒 {num} {purchases} — {status}</b>\n"
+        contest_text = '<b><tg-emoji emoji-id="6181273677787571937">🎁</tg-emoji> Խաղարկություն #{contest_id}\n\n<tg-emoji emoji-id="6183559145849890138">🪙</tg-emoji> Մրցանակ՝ <code>{prize}{cur}</code>\n<tg-emoji emoji-id="6181377573046461008">⌛️</tg-emoji> Ավարտին մնացել է՝ <code>{end_time}</code>\n<tg-emoji emoji-id="6183460812573646969">🎖</tg-emoji> {winners_num} {winners}\n<tg-emoji emoji-id="6181512409249750964">👤</tg-emoji> {members_num} {members}</b>'
+        conditions = '\n\n<b><tg-emoji emoji-id="6181220201149768417">📋</tg-emoji> Պայմաններ՝</b>\n\n'
+        conditions_refills = '<b><tg-emoji emoji-id="6181208703522317605">🛍</tg-emoji> {num} {refills} — {status}</b>\n'
+        conditions_purchases = '<b><tg-emoji emoji-id="5472189467869619770">🛒</tg-emoji> {num} {purchases} — {status}</b>\n'
         conditions_channels = "<b>✨ Բաժանորդագրվել {num} {channels_text}՝\n\n{channels}</b>\n"
         u_win_the_contest = "<b>🎉 Շնորհավորում ենք, դուք հաղթել եք խաղարկությունում։\n💰 Ձեզ փոխանցվել է {prize}{cur} մրցանակը։</b>"
         u_didnt_have_time_to_enter_contest = "Չհասցրիք մասնակցել։ 💥"

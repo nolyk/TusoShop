@@ -520,7 +520,7 @@ async function showOrder(kind, orderId, deliveryStatus = null) {
     : `<div class="delivery-item"><small>Ապրանք ${index + 1}</small><p>${escapeHtml(item.type)} ուղարկված է Telegram զրույցին${item.caption ? ` · ${escapeHtml(item.caption)}` : ''}</p></div>`).join('');
   openSheet({
     icon: kind === 'digital' ? 'star' : 'package',
-    title: kind === 'digital' ? 'Պատվերի մանրամասներ' : 'AutoShop գնում', subtitle: order.title,
+    title: kind === 'digital' ? 'Պատվերի մանրամասներ' : 'ԹույնShop գնում', subtitle: order.title,
     content: `<div class="order-detail">${rows.map(([label, value]) =>
       `<div><span>${label}</span><b>${escapeHtml(value)}</b></div>`).join('')}</div>${contents}
       ${kind === 'shop' ? '<button class="redeliver-action" id="redeliver-order" type="button">Կրկին ուղարկել ապրանքը զրույցին</button>' : ''}

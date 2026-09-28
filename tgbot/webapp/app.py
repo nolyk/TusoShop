@@ -30,7 +30,7 @@ from AsyncPayments.lolz import AsyncLolzteamMarketPayment
 BASE_DIR = Path(__file__).resolve().parent
 STATIC_DIR = BASE_DIR / "static"
 
-app = FastAPI(title="AutoShop Mini App", version="1.0.0", docs_url=None, redoc_url=None)
+app = FastAPI(title="ԹույնShop Mini App", version="1.0.0", docs_url=None, redoc_url=None)
 if BotConfig.WEBAPP_ALLOWED_ORIGINS:
     app.add_middleware(
         CORSMiddleware,
@@ -107,7 +107,7 @@ async def digital_products():
                 "description": position.description or "",
                 "max_quantity": 10,
                 "id": f"shop:{position.pos_id}",
-                "title": position.name or "AutoShop ապրանք",
+                "title": position.name or "ԹույնShop ապրանք",
                 "subtitle": position.description or "Թվային ապրանք",
                 "image": (photo if photo.startswith("https://") else f"/api/shop/products/{position.pos_id}/photo") if photo and photo != "-" else None,
                 "price": round(float(getattr(position, f"price_{currency}") or 0), 2),
@@ -532,7 +532,7 @@ async def create_refill(payload: RefillCreateRequest, user: models.User = Depend
             invoice_stars = max(1, math.ceil(float(amount_amd) / rate))
             receipt = f"stars:{user.user_id}:{amount}:{currency.value}:{receipt}"
             pay_url = await bot.create_invoice_link(
-                title="GS AutoShop",
+                title="ԹույնShop",
                 description=f"Հաշվեկշռի լիցքավորում՝ {amount}{BotConfig.CURRENCIES[currency.value]['sign']}",
                 payload=receipt,
                 currency="XTR",

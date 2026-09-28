@@ -3,6 +3,7 @@ from aiogram.utils.keyboard import InlineKeyboardBuilder
 import telyx as tx
 from tgbot.utils.digital_emoji import STARS_BUY_EMOJI_ID
 from tgbot.utils.premium_emoji import storefront_ad_label
+from tgbot.utils.storefront_branding import style_storefront_keyboard
 
 from tgbot import utils
 from tgbot.data import config as config_file
@@ -18,12 +19,12 @@ class InlineButtons:
         
         if settings.is_ref:
             builder.add(
-                self.telyx_button(tx.users, texts.BUTTONS.ref_system, "ref_system")
+                InlineKeyboardButton(text=texts.BUTTONS.ref_system, callback_data="ref_system", icon_custom_emoji_id="6181676644504185221")
             )
             
         builder.row(
-            self.telyx_button(tx.circle_check, texts.BUTTONS.activate_promo, "activate_promo"),
-            self.telyx_button(tx.package, texts.BUTTONS.purchases_history, "purchases_history")
+            InlineKeyboardButton(text=texts.BUTTONS.activate_promo, callback_data="activate_promo", icon_custom_emoji_id="6183777454742577008"),
+            InlineKeyboardButton(text=texts.BUTTONS.purchases_history, callback_data="purchases_history", icon_custom_emoji_id="6181724391655613194")
         )
         # The customer storefront is Armenian-only; do not offer other languages.
         builder.row(self.telyx_button(tx.arrow_left, texts.BUTTONS.back, "back_to_user_menu"))
@@ -267,7 +268,7 @@ class InlineButtons:
                     count=count_success,
                     count_conditions=count_conditions    
                 ),
-                callback_data="NONE"))
+                callback_data="NONE", icon_custom_emoji_id="6181207762924478466"))
         builder.row(self.telyx_button(tx.arrow_left, texts.BUTTONS.back, "back_to_user_menu"))
         return builder
     
@@ -368,6 +369,6 @@ class ReplyButtons:
 
             keyboard = builder.as_markup()
 
-        return keyboard
+        return style_storefront_keyboard(keyboard)
     
     

@@ -10,7 +10,7 @@ from tgbot.utils.menu import edit_menu, send_menu
 
 
 @userRouter.message(F.text == BTs.Ru.BUTTONS.contests)
-@userRouter.message(F.text == BTs.Hy.BUTTONS.contests)
+@userRouter.message(F.text.in_({BTs.Hy.BUTTONS.contests, "🎁 Խաղարկություններ"}))
 @userRouter.message(F.text == BTs.En.BUTTONS.contests)
 @userRouter.message(F.text == BTs.Ua.BUTTONS.contests)
 async def contests_user(msg: Message, state: FSMContext, BotTexts: BTs.Ru | BTs.En | BTs.Ua):

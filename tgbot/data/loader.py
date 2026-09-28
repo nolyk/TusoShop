@@ -1,6 +1,7 @@
 import logging
 from tgbot.utils.premium_emoji import storefront_ad_label
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
+from tgbot.utils.back_button_emoji import BackButtonEmojiMiddleware
 
 from aiogram import Bot, Dispatcher, F, types, Router
 from aiogram.client.default import DefaultBotProperties
@@ -19,6 +20,7 @@ logging.basicConfig(level=logging.INFO)
 
 # Создаем базовый объект бота
 bot = Bot(token=BotConfig.BOT_TOKEN, default=DefaultBotProperties(parse_mode="HTML", link_preview_is_disabled=True))
+bot.session.middleware(BackButtonEmojiMiddleware())
 dp = Dispatcher()
 scheduler = AsyncIOScheduler()
 

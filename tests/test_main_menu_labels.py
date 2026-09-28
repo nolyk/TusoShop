@@ -15,7 +15,7 @@ async def test_main_menu_top_and_clean_labels(monkeypatch, kind):
     monkeypatch.setattr(DB, 'get_ad_buttons', AsyncMock(return_value=[SimpleNamespace(name='Реклама',button_id=9)]))
     menu = await ReplyButtons().main_menu(BotTexts.Hy, 1, [1])
     rows = menu.keyboard if kind == 'Reply' else menu.inline_keyboard
-    assert len(rows[0]) == 1 and rows[0][0].text == 'Mini App'
+    assert len(rows[0]) == 1 and rows[0][0].text == 'Mini app'
     assert rows[0][0].web_app.url == 'https://example.org/app'
     assert any(b.text == 'Գովազդ' for row in rows for b in row)
     assert all(not b.text.startswith(('•','·','.')) for row in rows for b in row)

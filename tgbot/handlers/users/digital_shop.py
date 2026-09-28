@@ -36,24 +36,24 @@ def telyx_button(text: str, callback_data: str, **kwargs) -> InlineKeyboardButto
 async def digital_home_keyboard() -> InlineKeyboardMarkup:
     rows = []
     if await digital_shop_repository.product_enabled("stars"):
-        rows.append([emoji_button(text="Գնել Stars", callback_data="digital:stars", emoji_id=STARS_BUY_EMOJI_ID)])
+        rows.append([emoji_button(text="Գնել Stars", callback_data="digital:stars", emoji_id="6181597355112932310")])
     if await digital_shop_repository.product_enabled("premium"):
-        rows.append([emoji_button(text="Գնել Premium", callback_data="digital:premium", emoji_id=PREMIUM_BUY_EMOJI_ID)])
+        rows.append([emoji_button(text="Գնել Premium", callback_data="digital:premium", emoji_id="6181700898184503901")])
     if await digital_shop_repository.product_enabled("gift"):
         rows.append([emoji_button(text="Telegram նվերներ", callback_data="digital:gifts", emoji_id=GIFTS_MENU_EMOJI_ID)])
-    rows.append([telyx_button(text="Իմ պատվերները", callback_data="digital:orders")])
+    rows.append([emoji_button(text="Իմ պատվերները", callback_data="digital:orders", emoji_id="6181208703522317605")])
     rows.append([telyx_button(text="Գլխավոր ընտրացանկ", callback_data="back_to_user_menu")])
     return InlineKeyboardMarkup(inline_keyboard=rows)
 
 
 DIGITAL_HOME_TEXT = (
-    f"{STARS_EMOJI} Գնեք <b>Telegram Stars</b> և <b>Premium</b> հատուկ, անվտանգ բաժնում։\n\n"
+    f"<tg-emoji emoji-id='6181365645922281493'>⭐</tg-emoji> Գնեք <b>Telegram Stars</b> և <b>Premium</b> հատուկ, անվտանգ բաժնում։\n\n"
     "Գինը ֆիքսվում է պատվերը ստեղծելիս և վճարումից հետո չի փոխվում։\n\n"
     "<b>Ընտրեք ապրանքը՝</b>"
 )
 
 
-@userRouter.message(F.text == "⭐ Stars & Premium")
+@userRouter.message(F.text.in_({"⭐ Stars & Premium", "Stars & Premium"}))
 async def digital_home_message(message: Message, state: FSMContext):
     await state.clear()
     if not BotConfig.DIGITAL_SHOP_ENABLED:
@@ -162,16 +162,16 @@ async def digital_stars(call: CallbackQuery, state: FSMContext):
     await state.clear()
     await state.update_data(digital_product="stars")
     keyboard = InlineKeyboardMarkup(inline_keyboard=[
-        [emoji_button(text="50 Stars", callback_data="digital:stars_amount:50", emoji_id=STARS_BUY_EMOJI_ID),
-         emoji_button(text="100 Stars", callback_data="digital:stars_amount:100", emoji_id=STARS_BUY_EMOJI_ID)],
-        [emoji_button(text="500 Stars", callback_data="digital:stars_amount:500", emoji_id=STARS_BUY_EMOJI_ID),
-         telyx_button(text="Իմ քանակը", callback_data="digital:stars_custom")],
+        [emoji_button(text="50 Stars", callback_data="digital:stars_amount:50", emoji_id="6181597355112932310"),
+         emoji_button(text="100 Stars", callback_data="digital:stars_amount:100", emoji_id="6181597355112932310")],
+        [emoji_button(text="500 Stars", callback_data="digital:stars_amount:500", emoji_id="6181597355112932310"),
+         emoji_button(text="Իմ քանակը", callback_data="digital:stars_custom", emoji_id="6183790833565705068")],
         [telyx_button(text="Հետ", callback_data="digital:home")],
     ])
     await edit_menu(
         call,
-        f"{STARS_EMOJI} Գնեք <b>Telegram Stars</b> Ընտրեք քանակը կամ մուտքագրեք ձեր տարբերակը։\n\n"
-        "Նվազագույնը՝ 50 ⭐️\nԱռավելագույնը՝ 4,999 ⭐️",
+        f"<tg-emoji emoji-id='6181597355112932310'>⭐</tg-emoji> Գնեք <b>Telegram Stars</b> Ընտրեք քանակը կամ մուտքագրեք ձեր տարբերակը։\n\n"
+        "Նվազագույնը՝ 50 <tg-emoji emoji-id='6181597355112932310'>⭐</tg-emoji>\nԱռավելագույնը՝ 4,999 <tg-emoji emoji-id='6181597355112932310'>⭐</tg-emoji>",
         keyboard, "main",
     )
 
@@ -184,14 +184,14 @@ async def digital_premium(call: CallbackQuery, state: FSMContext):
     await state.clear()
     await state.update_data(digital_product="premium")
     keyboard = InlineKeyboardMarkup(inline_keyboard=[
-        [emoji_button(text="3 ամիս", callback_data="digital:premium_period:3", emoji_id=PREMIUM_BUY_EMOJI_ID)],
-        [emoji_button(text="6 ամիս", callback_data="digital:premium_period:6", emoji_id=PREMIUM_BUY_EMOJI_ID)],
-        [emoji_button(text="12 ամիս", callback_data="digital:premium_period:12", emoji_id=PREMIUM_BUY_EMOJI_ID)],
+        [emoji_button(text="3 ամիս", callback_data="digital:premium_period:3", emoji_id="6181389547415282170")],
+        [emoji_button(text="6 ամիս", callback_data="digital:premium_period:6", emoji_id="6181713619877634683")],
+        [emoji_button(text="12 ամիս", callback_data="digital:premium_period:12", emoji_id="6181253951002780793")],
         [telyx_button(text="Հետ", callback_data="digital:home")],
     ])
     await edit_menu(
         call,
-        f"{PREMIUM_EMOJI} <b>Telegram Premium</b> Ընտրեք բաժանորդագրության ժամկետը։\n\n"
+        f"<tg-emoji emoji-id='6181700898184503901'>⭐</tg-emoji> <b>Telegram Premium</b> Ընտրեք բաժանորդագրության ժամկետը։\n\n"
         "Վերջնական գինը կհաշվարկվի ստացողին հաստատելուց հետո։",
         keyboard, "main",
     )
@@ -199,8 +199,8 @@ async def digital_premium(call: CallbackQuery, state: FSMContext):
 
 def recipient_keyboard(back_callback: str) -> InlineKeyboardMarkup:
     return InlineKeyboardMarkup(inline_keyboard=[
-        [telyx_button(text="Գնել ինձ համար", callback_data="digital:recipient:self")],
-        [telyx_button(text="Մուտքագրել username", callback_data="digital:recipient:input")],
+        [emoji_button(text="Գնել ինձ համար", callback_data="digital:recipient:self", emoji_id="6181512409249750964")],
+        [emoji_button(text="Մուտքագրել username", callback_data="digital:recipient:input", emoji_id="6181440610281464581")],
         [telyx_button(text="Հետ", callback_data=back_callback)],
     ])
 

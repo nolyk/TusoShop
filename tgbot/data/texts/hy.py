@@ -51,7 +51,7 @@ class Language:
         purchase_s = ("գնում",) * 3
         channel_s = ("ալիք",) * 3
         person_s = ("մարդ",) * 3
-        main_menu = "<b><tg-emoji emoji-id='5260399854500191689'>👤</tg-emoji> {username}, բարի գալուստ <b>ԹույնShop</b>։\n\n<tg-emoji emoji-id='5231102735817918643'>👇</tg-emoji> Ընտրեք բաժինը ցանկից՝</b>"
+        main_menu = '<b><tg-emoji emoji-id="6183704354399200886">👑</tg-emoji> {username}, բարի գալուստ <b>ԹույնShop</b>։\n\n<tg-emoji emoji-id="6181530044385468714">⬇</tg-emoji> Ընտրեք բաժինը ցանկից՝</b>'
         bot_will_not_respond = "❗ Բոտը չի պատասխանի, մինչև չդադարեցնեք սպամը։"
         please_dont_spam = "❗ Խնդրում ենք չուղարկել սպամ։"
         profile_text = """<b><tg-emoji emoji-id="6183468706723537731">👤</tg-emoji> Ձեր էջը՝
@@ -86,7 +86,7 @@ class Language:
         custom_pay_no_cards = "<b>❌ Փոխանցման քարտերը դեռ կարգավորված չեն։ Դիմեք աջակցությանը։</b>"
         create_refill_text_custom_pay_method = "<b>⭐ Լիցքավորում՝ <code>{paymentMethod}</code>\n💰 Գումար՝ <code>{pay_amount}{curr}</code>\n🆔 Վճարման ID՝ <code>{pay_id}</code>\n⌛ Վճարեք մինչև <code>{under_date}</code></b>\n\n{custom_pay_method_text}"
         cancel_create_refill_text_custom_pay_method = '<b><tg-emoji emoji-id="6181207762924478466">📝</tg-emoji> Դուք արդեն ունեք ակտիվ լիցքավորում՝\n\n<tg-emoji emoji-id="6181551167034631404">💳</tg-emoji> Եղանակ՝ <code>{paymentMethod}</code>\n<tg-emoji emoji-id="6183559145849890138">🪙</tg-emoji> Գումար՝ <code>{pay_amount}{curr}</code>\n<tg-emoji emoji-id="6181548602939155001">👤</tg-emoji> Վճարման ID՝ <code>{pay_id}</code>\n<tg-emoji emoji-id="6181377573046461008">⌛️</tg-emoji> Վճարեք մինչև <code>{under_date}</code></b>\n\n{custom_pay_method_text}'
-        enter_amount_of_refill = "<b>❗ Մուտքագրեք լիցքավորման գումարը՝</b>"
+        enter_amount_of_refill = '<b>❗ Մուտքագրեք լիցքավորման գումարը</b>'
         choose_crypto = "<b>⚙️ Ընտրեք կրիպտոարժույթը՝</b>"
         error_refill = "❌ Սխալ. հաշվեկշիռն արդեն լիցքավորված է։"
         success_refill_text = '<b><tg-emoji emoji-id="6181423645160646167">👛</tg-emoji> Ձեր հաշվեկշիռը հաջողությամբ լիցքավորվել է <code>{amount}{curr}</code>-ով։\n<tg-emoji emoji-id="6181612022426247965">💸</tg-emoji> Եղանակ՝ <code>{way}</code>\n<tg-emoji emoji-id="6181523988481581415">📋</tg-emoji> Անդորրագիր՝ <code>{receipt}</code></b>'
@@ -97,18 +97,18 @@ class Language:
         new_ref_lvl = "<b>💚 Ձեր հրավիրումների նոր մակարդակը {new_lvl} է։ {next_lvl}-րդ մակարդակին հասնելու համար պետք է ևս {remain_refs} {convert_ref}։</b>"
         max_ref_lvl = "<b>💚 Դուք հասել եք հրավիրումների 3-րդ՝ առավելագույն մակարդակին։</b>"
         cur_max_lvl = "💚 Դուք առավելագույն մակարդակում եք։</b>"
-        next_lvl_remain = "💚 Հաջորդ մակարդակին հասնելու համար հրավիրեք ևս <code>{remain_refs} {person_s}</code>։</b>"
-        ref_text = """<b>💎 Հրավիրումների համակարգ
+        next_lvl_remain = '<tg-emoji emoji-id="6183489966811653469">📝</tg-emoji> Հաջորդ մակարդակին հասնելու համար հրավիրեք ևս <code>{remain_refs} {person_s}</code>։</b>'
+        ref_text = """<b><tg-emoji emoji-id="6181676644504185221">🤝</tg-emoji> Հրավիրումների համակարգ
 
-🔗 Հղում՝
+<tg-emoji emoji-id="6181491892190978963">🔗</tg-emoji> Հղում՝
 {ref_link}
 
-📔 Ձեր հղումը ուղարկեք ընկերներին և նրանց յուրաքանչյուր լիցքավորումից ստացեք <code>{ref_percent}%</code>։
+<tg-emoji emoji-id="6181612022426247965">💸</tg-emoji> Ձեր հղումը ուղարկեք ընկերներին և նրանց յուրաքանչյուր լիցքավորումից ստացեք <code>{ref_percent}%</code>։
 
-⚙️ Ձեզ հրավիրել է՝ {reffer}
-💵 Հրավիրվածներից վաստակած գումար՝ <code>{ref_earn}{curr}</code>
-📌 Հրավիրված օգտատերեր՝ <code>{ref_count}</code> {convert_ref}
-🎲 Հրավիրումների մակարդակ՝ <code>{ref_lvl}</code>
+<tg-emoji emoji-id="6181512409249750964">👤</tg-emoji> Ձեզ հրավիրել է՝ {reffer}
+<tg-emoji emoji-id="6181405799571531484">⚡</tg-emoji> Հրավիրվածներից վաստակած գումար՝ <code>{ref_earn}{curr}</code>
+<tg-emoji emoji-id="6181405799571531484">⚡</tg-emoji> Հրավիրված օգտատերեր՝ <code>{ref_count}</code> {convert_ref}
+<tg-emoji emoji-id="6181319861570905738">📊</tg-emoji> Հրավիրումների մակարդակ՝ <code>{ref_lvl}</code>
 {mss}"""
         yes_reffer = "<b>❗ Ձեզ արդեն հրավիրել են։</b>"
         invite_yourself = "<b>❗ Չեք կարող ինքներդ ձեզ հրավիրել։</b>"
@@ -116,10 +116,10 @@ class Language:
         promo_act = "<b>📩 Պրոմոկոդն ակտիվացնելու համար մուտքագրեք այն։\n⚙️ Օրինակ՝ promo2025</b>"
         no_uses_promocode = "<b>❌ Պրոմոկոդի ակտիվացման ժամկետն ավարտվել է։</b>"
         no_promocode = "<b>❌ <code>{promocode}</code> պրոմոկոդը գոյություն չունի։</b>"
-        yes_promocode = "<b>✅ Պրոմոկոդն ակտիվացվել է. ստացել եք <code>{discount}{curr}</code>։</b>"
+        yes_promocode = '<b><tg-emoji emoji-id="6181681557946770158">✅</tg-emoji> Պրոմոկոդն ակտիվացվել է. ստացել եք <code>{discount}{curr}</code>։</b>'
         yes_uses_promocode = "<b>❌ Դուք արդեն ակտիվացրել եք այս պրոմոկոդը։</b>"
         no_cats = "<b>❌ Այս պահին կատեգորիաներ չկան։</b>"
-        available_cats = '<b><tg-emoji emoji-id="5472189467869619770">🛒</tg-emoji> Հասանելի կատեգորիաները <tg-emoji emoji-id="6181530044385468714">⬇</tg-emoji></b>'
+        available_cats = '<b><tg-emoji emoji-id="5472189467869619770">🛒</tg-emoji> Հասանելի կատեգորիաները</b>'
         current_cat = '<b><tg-emoji emoji-id="6181208703522317605">🛍</tg-emoji> Ընթացիկ կատեգորիա՝ <code>{name}</code></b>'
         no_products = "❌ Այս պահին ապրանքներ չկան։"
         open_position_text = '<b><tg-emoji emoji-id="5472189467869619770">🛒</tg-emoji> Կատեգորիա՝ <code>{cat_name}</code>\n\n<tg-emoji emoji-id="5472382354850881695">🛍</tg-emoji> Ապրանք՝ <code>{pos_name}</code>\n<tg-emoji emoji-id="5474129800949964546">🪙</tg-emoji> Գին՝ <code>{price}{cur}</code>\n<tg-emoji emoji-id="5471946243871645459">🔶</tg-emoji> Հասանելի քանակ՝ <code>{items}</code></b>\n\n{desc}'
@@ -132,7 +132,7 @@ class Language:
         no_balance_on_account = "<b>❌ Հաշվեկշռում բավարար միջոցներ չկան։</b>"
         please_await_products = "<b>🔄 Սպասեք, ապրանքները պատրաստվում են։</b>"
         successful_buying = "<b>✅ Գնումը հաջողությամբ կատարվել է։</b>\n\n- Անդորրագիր՝ <code>{receipt}</code>\n- Ապրանք՝ <code>{position_name} | {purchase_count} հատ | {purchase_price}{curr}</code>\n- Գնման ամսաթիվ՝ <code>{date}</code>"
-        receipt_purchase = "<b>⭐ Անդորրագիր <code>{receipt}</code>՝\n📌 Ապրանք՝ <code>{pos_name}</code>\n💰 Գումար՝ <code>{sum}{curr}</code>\n🛒 Քանակ՝ <code>{count} հատ</code>\n🎲 Ամսաթիվ՝ <code>{date}</code>\n🔗 Բովանդակություն՝</b>"
+        receipt_purchase = '<b><tg-emoji emoji-id="6181523988481581415">📋</tg-emoji> Անդորրագիր <code>{receipt}</code>՝\n<tg-emoji emoji-id="6181208703522317605">🛍</tg-emoji> Ապրանք՝ <code>{pos_name}</code>\n<tg-emoji emoji-id="6183559145849890138">🪙</tg-emoji> Գումար՝ <code>{sum}{curr}</code>\n<tg-emoji emoji-id="6181535786756743376">📚</tg-emoji> Քանակ՝ <code>{count} հատ</code>\n<tg-emoji emoji-id="6181377573046461008">⌛️</tg-emoji> Ամսաթիվ՝ <code>{date}</code>\n<tg-emoji emoji-id="6181686548698767939">🧮</tg-emoji> Բովանդակություն՝</b>'
         last_10_purchases = "<b>🚀 Վերջին 10 գնումները</b>"
         no_have_purchases = "❗ Դուք դեռ գնումներ չունեք։"
         your_items = "<b>🛒 Ձեր ապրանքները</b>"

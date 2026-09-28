@@ -44,7 +44,7 @@ async def test_no_keyboard_passthrough():
     assert await BackButtonEmojiMiddleware()(next_request,bot,request) is True
 
 def test_exact_catalog_heading_and_product():
-    assert BotTexts.Hy.TEXTS.available_cats == '<b><tg-emoji emoji-id="5472189467869619770">🛒</tg-emoji> Հասանելի կատեգորիաները <tg-emoji emoji-id="6181530044385468714">⬇</tg-emoji></b>'
+    assert BotTexts.Hy.TEXTS.available_cats == '<b><tg-emoji emoji-id="5472189467869619770">🛒</tg-emoji> Հասանելի կատեգորիաները</b>'
     assert '6181208703522317605' in BotTexts.Hy.TEXTS.current_cat
     rendered=BotTexts.Hy.TEXTS.open_position_text.format(cat_name='Համարներ',pos_name='Armenia',price='21400.0',cur='֏',items='Անսահմանափակ',desc='fixture')
     for id in ('5472189467869619770','5472382354850881695','5474129800949964546','5471946243871645459'):

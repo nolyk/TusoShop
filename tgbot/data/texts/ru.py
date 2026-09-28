@@ -525,16 +525,16 @@ class Language:
         all_positions_are_deleted_alert = "<b>❗ Администратор {username} удалил <u>ВСЕ</u> позиции!</b>"
         del_all_items_text = "<b>❓ Вы уверены, что хотите удалить <u>ВСЕ</u> товары?</b>"
         all_items_are_deleted_alert = "<b>❗ Администратор {username} удалил <u>ВСЕ</u> товары!</b>"
-        enter_name_for_create_ad_button = "<b>❗ Введите название для рекламной кнопки:</b>"
-        enter_content_for_ad_button = "<b>❗ Введите контент (сообщение) кнопки:</b>"
-        enter_photo_for_ad_button = "<b>❗ Отправьте фото кнопки, чтобы пропустить введите <code>-</code></b>"
-        enter_links_buttons_for_ad_button = """<b>❗ Отправьте кнопки-ссылки для этой кнопки в формате:
+        enter_name_for_create_ad_button = "<b>📢 Введите название для рекламной кнопки:</b>"
+        enter_content_for_ad_button = "<b>📢 Введите контент (сообщение) кнопки:</b>"
+        enter_photo_for_ad_button = "<b>📢 Отправьте фото кнопки, чтобы пропустить введите <code>-</code></b>"
+        enter_links_buttons_for_ad_button = """<b>📢 Отправьте кнопки-ссылки для этой кнопки в формате:
     
 <code>Ссылка #1|https://examle1.com
 Ссылка #2|https://example2.com</code>
 
 ❗ Чтобы пропустить введите <code>-</code></b>"""
-        ad_button_is_created_alert = "<b>❗ Администратор {username} создал рекламную кнопку <code>{name}</code>!</b>"
+        ad_button_is_created_alert = "<b>📢 Администратор {username} создал рекламную кнопку <code>{name}</code>!</b>"
         ad_button_is_deleted_alert = "<b>❗ Администратор {username} удалил рекламную кнопку <code>{name}</code>!</b>"
         enter_name_for_delete_ad_button = "<b>❗ Введите название рекламной кнопки для удаления:</b>"
         enter_name_for_create_mail_button = "<b>❗ Введите название для кнопки в рассылке:</b>"

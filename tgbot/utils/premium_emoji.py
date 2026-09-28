@@ -43,11 +43,19 @@ def strip_tg_emoji(value: str) -> str:
     return TG_EMOJI_RE.sub(r"\1", value)
 
 
+STATUS_IDS = {**dict.fromkeys('✅✔☑✓', '6181681557946770158'),
+              **dict.fromkeys('❌✖✗✘❎', '6181355634353513160'), '📢': '5474336762539057463'}
+BUTTON_STATUS_IDS = {}
+
+
 def normalize_button_text(value: str) -> str:
+    status = next((STATUS_IDS[c] for c in strip_tg_emoji(value) if c in STATUS_IDS), None)
     value = EMOJI_RE.sub("", value)
     value = value.replace("\ufe0f", "").replace("\u200d", "")
     value = re.sub(r"^[•·.\s|]+", "", value).strip()
     value = re.sub(r"\s{2,}", " ", value)
+    if status and value:
+        BUTTON_STATUS_IDS[value] = status
     return value
 
 
@@ -74,7 +82,10 @@ def premiumize_language(language_cls):
     _transform_class(language_cls.Texts, premiumize_text)
     _transform_class(language_cls.Buttons, normalize_button_text)
     _transform_class(language_cls.AdminTexts, strip_tg_emoji)
-    _transform_class(language_cls.AdminTexts, normalize_button_text)
+    def admin_text(value):
+        parts = re.split(r'([✅✔☑✓❌✖✗✘❎📢]\ufe0f?)', value)
+        return ''.join(part if part and part[0] in STATUS_IDS else EMOJI_RE.sub('', part) for part in parts)
+    _transform_class(language_cls.AdminTexts, admin_text)
 
 
 def storefront_ad_label(value: str) -> str:

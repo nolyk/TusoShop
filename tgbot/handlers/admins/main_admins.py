@@ -1,3 +1,4 @@
+import math
 from tgbot.utils.mini_app_menu import toggle_mini_app_menu
 from aiogram.exceptions import TelegramAPIError
 from aiogram import F
@@ -839,15 +840,22 @@ async def user_edit(call: CallbackQuery, state: FSMContext, BotTexts: BTs.Ru | B
 
 @adminRouter.message(StateFilter(adminStates.AdminFind.enter_new_balance))
 async def enter_new_balance(msg: Message, state: FSMContext, BotTexts: BTs.Ru | BTs.En | BTs.Ua):
-    if msg.text.isdigit or msg.text.replace(".", "").isdigit():
+    try:
+        amount = float(msg.text)
+    except (TypeError, ValueError):
+        await msg.reply(BotTexts.ADMIN_TEXTS.value_is_no_number)
+        return
+    data = await state.get_data()
+    if not math.isfinite(amount) or amount < 0 or (data['action'] != 'edit_balance' and amount == 0):
+        await msg.reply(BotTexts.ADMIN_TEXTS.value_is_no_number)
+        return
+    if amount >= 0:
         data = await state.get_data()
         await state.clear()
         settings = await DB.get_settings()
-        balances = await utils.get_currency_amounts(float(msg.text), settings.currency.value)
+        balances = await utils.get_currency_amounts(amount, settings.currency.value)
         if data['action'] == "add_balance":
-            await DB.update_user(data['user'].user_id, 
-                                 **{f"balance_{code}": getattr(data['user'], f"balance_{code}") + value for code, value in balances.items()},
-                                 )
+            await DB.credit_manual_refill(data['user'].user_id, balances)
         elif data['action'] == "minus_balance":
             await DB.update_user(data['user'].user_id, 
                                  **{f"balance_{code}": getattr(data['user'], f"balance_{code}") - value for code, value in balances.items()},

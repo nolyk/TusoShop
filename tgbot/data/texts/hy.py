@@ -86,7 +86,7 @@ class Language:
         custom_pay_no_cards = "<b>❌ Փոխանցման քարտերը դեռ կարգավորված չեն։ Դիմեք աջակցությանը։</b>"
         create_refill_text_custom_pay_method = "<b>⭐ Լիցքավորում՝ <code>{paymentMethod}</code>\n💰 Գումար՝ <code>{pay_amount}{curr}</code>\n🆔 Վճարման ID՝ <code>{pay_id}</code>\n⌛ Վճարեք մինչև <code>{under_date}</code></b>\n\n{custom_pay_method_text}"
         cancel_create_refill_text_custom_pay_method = '<b><tg-emoji emoji-id="6181207762924478466">📝</tg-emoji> Դուք արդեն ունեք ակտիվ լիցքավորում՝\n\n<tg-emoji emoji-id="6181551167034631404">💳</tg-emoji> Եղանակ՝ <code>{paymentMethod}</code>\n<tg-emoji emoji-id="6183559145849890138">🪙</tg-emoji> Գումար՝ <code>{pay_amount}{curr}</code>\n<tg-emoji emoji-id="6181548602939155001">👤</tg-emoji> Վճարման ID՝ <code>{pay_id}</code>\n<tg-emoji emoji-id="6181377573046461008">⌛️</tg-emoji> Վճարեք մինչև <code>{under_date}</code></b>\n\n{custom_pay_method_text}'
-        enter_amount_of_refill = '<b>❗ Մուտքագրեք լիցքավորման գումարը</b>'
+        enter_amount_of_refill = '<tg-emoji emoji-id="6181440610281464581">✍</tg-emoji><b> Մուտքագրեք լիցքավորման գումարը</b>'
         choose_crypto = "<b>⚙️ Ընտրեք կրիպտոարժույթը՝</b>"
         error_refill = "❌ Սխալ. հաշվեկշիռն արդեն լիցքավորված է։"
         success_refill_text = '<b><tg-emoji emoji-id="6181423645160646167">👛</tg-emoji> Ձեր հաշվեկշիռը հաջողությամբ լիցքավորվել է <code>{amount}{curr}</code>-ով։\n<tg-emoji emoji-id="6181612022426247965">💸</tg-emoji> Եղանակ՝ <code>{way}</code>\n<tg-emoji emoji-id="6181523988481581415">📋</tg-emoji> Անդորրագիր՝ <code>{receipt}</code></b>'
@@ -113,7 +113,7 @@ class Language:
         yes_reffer = "<b>❗ Ձեզ արդեն հրավիրել են։</b>"
         invite_yourself = "<b>❗ Չեք կարող ինքներդ ձեզ հրավիրել։</b>"
         new_refferal = "<b>💎 Դուք նոր հրավիրված օգտատեր ունեք՝ @{user_name}։\n⚙️ Այժմ ունեք <code>{user_ref_count}</code> {convert_ref}։</b>"
-        promo_act = "<b>📩 Պրոմոկոդն ակտիվացնելու համար մուտքագրեք այն։\n⚙️ Օրինակ՝ promo2025</b>"
+        promo_act = '<b><tg-emoji emoji-id="6183777454742577008">🎫</tg-emoji>Պրոմոկոդն ակտիվացնելու համար մուտքագրեք այն։\n<tg-emoji emoji-id="6181440610281464581">✍</tg-emoji> Օրինակ՝ Tuyn2027</b>'
         no_uses_promocode = "<b>❌ Պրոմոկոդի ակտիվացման ժամկետն ավարտվել է։</b>"
         no_promocode = "<b>❌ <code>{promocode}</code> պրոմոկոդը գոյություն չունի։</b>"
         yes_promocode = '<b><tg-emoji emoji-id="6181681557946770158">✅</tg-emoji> Պրոմոկոդն ակտիվացվել է. ստացել եք <code>{discount}{curr}</code>։</b>'

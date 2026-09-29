@@ -10,4 +10,4 @@ def test_greeting_icons_keep_username():
     assert 'Ընտրեք բաժինը ցանկից՝' in text
 
 def test_amount_prompt_has_no_trailing_mark():
-    assert BotTexts.Hy.TEXTS.enter_amount_of_refill=='<b>❗ Մուտքագրեք լիցքավորման գումարը</b>'
+    assert BotTexts.Hy.TEXTS.enter_amount_of_refill=='<tg-emoji emoji-id="6181440610281464581">✍</tg-emoji><b> Մուտքագրեք լիցքավորման գումարը</b>'

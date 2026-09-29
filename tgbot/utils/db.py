@@ -108,6 +108,22 @@ class DataBase:
 
         return rates.usd_rub, rates.usd_eur, rates.eur_rub, rates.eur_usd, rates.rub_usd, rates.rub_eur
 
+    async def credit_manual_refill(self, user_id, balances):
+        if 'rub' not in balances or not balances or any(
+            code not in {'rub', 'usd', 'eur', 'amd'} or not math.isfinite(float(value)) or float(value) <= 0
+            for code, value in balances.items()
+        ):
+            raise ValueError('Invalid manual refill amounts')
+        values = {f'balance_{code}': func.coalesce(getattr(models.User, f'balance_{code}'), 0) + float(value)
+                  for code, value in balances.items()}
+        values.update(count_refills=func.coalesce(models.User.count_refills, 0) + 1,
+                      total_refill=func.coalesce(models.User.total_refill, 0) + float(balances['rub']))
+        async with models.async_session() as session:
+            result = await session.execute(update(models.User).where(models.User.user_id == user_id).values(**values))
+            if result.rowcount != 1:
+                raise ValueError('Manual refill user not found')
+            await session.commit()
+
     async def get_settings(self):
         async with models.async_session() as session:
             return await session.get_one(models.Settings, "main")

@@ -1,3 +1,4 @@
+from tgbot.utils.mini_app_menu import menu_enabled
 from aiogram.types import InlineKeyboardButton
 from aiogram.utils.keyboard import InlineKeyboardBuilder
 import telyx as tx
@@ -85,6 +86,9 @@ class InlineButtons:
     async def switchers_kb(self, texts):
         builder = InlineKeyboardBuilder()
         settings = await config_file.DB.get_settings()
+        builder.row(InlineKeyboardButton(
+            text=f"Mini App в меню | {'ON' if menu_enabled(settings) else 'OFF'}",
+            callback_data="mini_app_menu:toggle", icon_custom_emoji_id="6181221171812377434"))
         builder.row(
             InlineKeyboardButton(text=f"{texts.ADMIN_TEXTS.switchers_settings['tech_works']} | {'ON' if settings.is_work else 'OFF'}", callback_data="switchers:is_work"),
             InlineKeyboardButton(text=f"{texts.ADMIN_TEXTS.switchers_settings['buys']} | {'ON' if settings.is_buy else 'OFF'}", callback_data="switchers:is_buy"),

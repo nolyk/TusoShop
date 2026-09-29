@@ -1,3 +1,5 @@
+from tgbot.utils.mini_app_menu import toggle_mini_app_menu
+from aiogram.exceptions import TelegramAPIError
 from aiogram import F
 from aiogram.filters import Command, StateFilter
 from aiogram.types import Message, CallbackQuery
@@ -257,6 +259,22 @@ async def edit_main_setting(call: CallbackQuery, state: FSMContext, BotTexts: BT
     await safe_edit_text(call.message, BotTexts.ADMIN_TEXTS.main_settings_text, 
                                  reply_markup=(await BotButtons.ADMIN_INLINE.main_settings(BotTexts)).as_markup())
     
+
+@adminRouter.callback_query(F.data == "mini_app_menu:toggle")
+async def mini_app_menu_toggle(call: CallbackQuery, state: FSMContext, BotTexts: BTs.Ru | BTs.En | BTs.Ua):
+    await state.clear()
+    try:
+        enabled = await toggle_mini_app_menu(DB, bot, BotConfig.WEBAPP_URL)
+    except ValueError as error:
+        await call.answer(str(error), show_alert=True)
+        return
+    except TelegramAPIError:
+        await call.answer("Telegram не применил изменение. Настройка возвращена; повторите попытку.", show_alert=True)
+        return
+    await safe_edit_text(call.message, BotTexts.ADMIN_TEXTS.choose_what_you_want_to_enable_disable,
+                         reply_markup=(await BotButtons.ADMIN_INLINE.switchers_kb(BotTexts)).as_markup())
+    await call.answer("Mini App включён в меню." if enabled else "Mini App скрыт. Старые меню обновятся после /start.", show_alert=True)
+
 
 @adminRouter.callback_query(F.data == "switchers")
 async def switchers(call: CallbackQuery, state: FSMContext, BotTexts: BTs.Ru | BTs.En | BTs.Ua):

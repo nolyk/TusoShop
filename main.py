@@ -18,6 +18,9 @@ async def main(*, initialize_database=True, handle_signals=True):
     # Запускаем настройку и проверку базы данных
     if initialize_database:
         await async_main()
+        from tgbot.utils.mini_app_menu import sync_mini_app_menu
+        from tgbot.data.config import DB, BotConfig
+        await sync_mini_app_menu(bot, await DB.get_settings(), BotConfig.WEBAPP_URL)
     
     # Запускаем задания
     loop = asyncio.get_event_loop()

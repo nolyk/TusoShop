@@ -6,7 +6,7 @@ from tgbot.data.config import BotConfig, BotTexts, DB
 from tgbot.keyboards.users import ReplyButtons
 from tgbot.handlers import userRouter
 from tgbot.handlers.users.digital_shop import digital_home_message
-EXPECTED = {'Mini app': '6181221171812377434', 'Գնել': '6181477413856224769', 'Աջակցություն': '6183774199157367778', 'Լիցքավորել հաշվեկշիռը': '6181704819489644554', 'Իմ էջը': '6181512409249750964', 'Խաղարկություններ': '6184004370749726738', 'Գովազդ': '6183558664813550912', 'Stars & Premium': '6181597355112932310'}
+EXPECTED = {'Mini app': '6181221171812377434', 'Գնել': '6181477413856224769', 'Աջակցություն': '6183774199157367778', 'Լիցքավորել հաշվեկշիռը': '6181704819489644554', 'Իմ էջը': '6181512409249750964', 'Խաղարկություններ': '6184004370749726738', 'Գովազդ': '6181448263913187012', 'Stars & Premium': '6181597355112932310'}
 @pytest.mark.asyncio
 @pytest.mark.parametrize('kind',['Reply','Inline'])
 @pytest.mark.parametrize('admin',[False,True])

@@ -9,7 +9,8 @@ from aiogram.types import MenuButtonWebApp, WebAppInfo
 from sqlalchemy import text
 
 from main import main as run_bot
-from tgbot.data.config import BotConfig
+from tgbot.data.config import BotConfig, DB
+from tgbot.utils.mini_app_menu import sync_mini_app_menu
 from tgbot.data.loader import bot
 from tgbot.utils.models import async_main, engine
 from tgbot.webapp.app import app
@@ -35,9 +36,7 @@ async def polling_worker():
             log.info("Previous deployment still owns polling; waiting")
             await asyncio.sleep(2)
         try:
-            await bot.set_chat_menu_button(menu_button=MenuButtonWebApp(
-                text="Mini App", web_app=WebAppInfo(url=BotConfig.WEBAPP_URL),
-            ))
+            await sync_mini_app_menu(bot, await DB.get_settings(), BotConfig.WEBAPP_URL)
             log.info("Mini App menu configured; starting polling")
             await run_bot(initialize_database=False, handle_signals=False)
         finally:

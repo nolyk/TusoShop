@@ -101,6 +101,7 @@ class Settings(Base):
     profit_week = Column(Integer, default=0)
     currency: Mapped[Currencies] = Column(Enum(Currencies), default=Currencies.rub)
     keyboard: Mapped[Keyboards] = Column(Enum(Keyboards), default=Keyboards.Reply)
+    mini_app_menu_enabled = Column(Boolean, nullable=False, default=True, server_default=text("true"))
     multi_lang = Column(Boolean, default=True)
     default_lang: Mapped[Languages] = Column(Enum(Languages), default=Languages.ru)
     contests_is_on = Column(Boolean, default=False)
@@ -501,6 +502,7 @@ async def async_main() -> None:
         if payment_column.fetchone()[0] == 0:
             await conn.execute(text('ALTER TABLE payments ADD COLUMN xrocket BOOLEAN DEFAULT false;'))
         migrations = (
+            "ALTER TABLE settings ADD COLUMN IF NOT EXISTS mini_app_menu_enabled BOOLEAN NOT NULL DEFAULT true;",
             "ALTER TABLE users ADD COLUMN IF NOT EXISTS balance_amd DOUBLE PRECISION DEFAULT 0;",
             "ALTER TABLE users ADD COLUMN IF NOT EXISTS ref_earn_amd DOUBLE PRECISION DEFAULT 0;",
             "ALTER TABLE positions ADD COLUMN IF NOT EXISTS price_amd DOUBLE PRECISION DEFAULT 0;",

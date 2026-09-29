@@ -1,3 +1,4 @@
+from tgbot.utils.mini_app_menu import menu_enabled, valid_url
 from aiogram.types import ReplyKeyboardMarkup, KeyboardButton, InlineKeyboardButton, WebAppInfo
 from aiogram.utils.keyboard import InlineKeyboardBuilder
 import telyx as tx
@@ -319,12 +320,13 @@ class ReplyButtons:
             if settings.faq and settings.faq != "-":
                 kb_extra.insert(0, KeyboardButton(text=texts.BUTTONS.faq))
             kb = [
-                [KeyboardButton(text="Mini App", web_app=WebAppInfo(url=config_file.BotConfig.WEBAPP_URL))],
                 [KeyboardButton(text=texts.BUTTONS.buy), KeyboardButton(text=texts.BUTTONS.profile)],
                 [KeyboardButton(text="⭐ Stars & Premium")],
                 kb_extra,
                 [KeyboardButton(text=texts.BUTTONS.topup_balance)]
             ]
+            if menu_enabled(settings) and valid_url(config_file.BotConfig.WEBAPP_URL):
+                kb.insert(0, [KeyboardButton(text="Mini App", web_app=WebAppInfo(url=config_file.BotConfig.WEBAPP_URL))])
             if settings.contests_is_on:
                 kb.append([KeyboardButton(text=texts.BUTTONS.contests)])
             if user_id in admins:
@@ -340,7 +342,7 @@ class ReplyButtons:
             )
         else:
             builder = InlineKeyboardBuilder()
-            if config_file.BotConfig.WEBAPP_URL.startswith("https://"):
+            if menu_enabled(settings) and valid_url(config_file.BotConfig.WEBAPP_URL):
                 builder.row(InlineKeyboardButton(
                     text="Mini App",
                     web_app=WebAppInfo(url=config_file.BotConfig.WEBAPP_URL),

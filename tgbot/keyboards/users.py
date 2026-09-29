@@ -333,7 +333,7 @@ class ReplyButtons:
                 kb.append([KeyboardButton(text=texts.BUTTONS.admin_panel),])
             
             for button in ad_buttons:
-                kb.append([KeyboardButton(text=storefront_ad_label(button.name))])
+                kb.append([KeyboardButton(text=storefront_ad_label(button.name), icon_custom_emoji_id="6181448263913187012")])
 
             keyboard = ReplyKeyboardMarkup(
                 keyboard=kb,
@@ -367,7 +367,7 @@ class ReplyButtons:
                 builder.row(InlineButtons.telyx_button(tx.settings, texts.BUTTONS.admin_panel, "admin_panel"))
 
             for button in ad_buttons:
-                builder.row(InlineButtons.telyx_button(tx.package, storefront_ad_label(button.name), f"ad_button_open:{button.button_id}"))
+                builder.row(InlineKeyboardButton(text=storefront_ad_label(button.name), callback_data=f"ad_button_open:{button.button_id}", icon_custom_emoji_id="6181448263913187012"))
 
             keyboard = builder.as_markup()
 

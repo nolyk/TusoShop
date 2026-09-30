@@ -62,12 +62,12 @@ async def test_reply_label_and_alert_unchanged():
     assert alert.text=='✅ OK'
 
 def test_existing_custom_id_replaced():
-    assert html_status('<tg-emoji emoji-id="123">❌</tg-emoji>')=='<tg-emoji emoji-id="6181355634353513160">❌</tg-emoji>'
+    assert html_status('<tg-emoji emoji-id="123">❌</tg-emoji>')=='<tg-emoji emoji-id="123">❌</tg-emoji>'
     assert '✅' in BotTexts.Hy.ADMIN_TEXTS.success
 
 @pytest.mark.asyncio
 async def test_existing_entity_and_icon():
     method=SendMessage(chat_id=1,text='❌',parse_mode=None,entities=[MessageEntity(type='custom_emoji',offset=0,length=1,custom_emoji_id='123')],reply_markup=InlineKeyboardMarkup(inline_keyboard=[[InlineKeyboardButton(text='Confirm',callback_data='confirm',icon_custom_emoji_id='5211226456100738227')]]))
     await StatusEmojiMiddleware()(AsyncMock(),bot,method)
-    assert method.entities[0].custom_emoji_id==STATUS_IDS['❌']
+    assert method.entities[0].custom_emoji_id=='123'
     assert method.reply_markup.inline_keyboard[0][0].icon_custom_emoji_id==STATUS_IDS['✅']

@@ -1,3 +1,4 @@
+from tgbot.utils.catalog_emoji import catalog_name
 from aiogram import F
 from aiogram.filters import Command, StateFilter, CommandObject
 from aiogram.types import Message, CallbackQuery
@@ -410,7 +411,7 @@ async def purchases_history(call: CallbackQuery, state: FSMContext, BotTexts: BT
             
             await call.message.answer(BotTexts.TEXTS.receipt_purchase.format(
                 receipt=purchase.receipt,
-                pos_name=position.name,
+                pos_name=catalog_name(position),
                 sum=price,
                 curr=BotConfig.CURRENCIES[settings.currency.value]['sign'],
                 count=purchase.count,

@@ -1,3 +1,4 @@
+from tgbot.utils.catalog_emoji import CatalogEmojiMiddleware
 import logging
 from tgbot.utils.premium_emoji import storefront_ad_label
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
@@ -23,6 +24,7 @@ logging.basicConfig(level=logging.INFO)
 bot = Bot(token=BotConfig.BOT_TOKEN, default=DefaultBotProperties(parse_mode="HTML", link_preview_is_disabled=True))
 bot.session.middleware(StatusEmojiMiddleware())
 bot.session.middleware(BackButtonEmojiMiddleware())
+bot.session.middleware(CatalogEmojiMiddleware())
 dp = Dispatcher()
 scheduler = AsyncIOScheduler()
 

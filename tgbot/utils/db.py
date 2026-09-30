@@ -379,9 +379,9 @@ class DataBase:
             await session.execute(delete(models.MenuBanner))
             await session.commit()
 
-    async def add_category(self, name):
+    async def add_category(self, name, name_html=None):
         async with models.async_session() as session:
-            await session.execute(insert(models.Category).values(name=name))
+            await session.execute(insert(models.Category).values(name=name, name_html=name_html))
             await session.commit()
 
     async def get_all_categories(self):
@@ -407,9 +407,9 @@ class DataBase:
             await session.execute(delete(models.Category))
             await session.commit()
 
-    async def add_subcategory(self, name, category_id):
+    async def add_subcategory(self, name, category_id, name_html=None):
         async with models.async_session() as session:
-            await session.execute(insert(models.SubCategory).values(name=name, cat_id=category_id))
+            await session.execute(insert(models.SubCategory).values(name=name, cat_id=category_id, name_html=name_html))
             await session.commit()
 
     async def get_all_subcategories(self):
@@ -468,10 +468,11 @@ class DataBase:
             await session.execute(delete(models.Item))
             await session.commit()
 
-    async def add_position(self, name, price_rub, price_usd, price_eur, price_amd, description, photo, cat_id, sub_cat_id, position_type, item_type):
+    async def add_position(self, name, price_rub, price_usd, price_eur, price_amd, description, photo, cat_id, sub_cat_id, position_type, item_type, name_html=None):
         async with models.async_session() as session:
             await session.execute(insert(models.Position).values(
                 name=name,
+                name_html=name_html,
                 price_rub=float(price_rub),
                 price_usd=float(price_usd),
                 price_eur=float(price_eur),

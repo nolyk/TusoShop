@@ -1,3 +1,4 @@
+from tgbot.utils.catalog_emoji import catalog_button_name
 from tgbot.utils.mini_app_menu import menu_enabled
 from aiogram.types import InlineKeyboardButton
 from aiogram.utils.keyboard import InlineKeyboardBuilder
@@ -189,14 +190,14 @@ class InlineButtons:
     def category_select_menu(self, texts, categories):
         builder = InlineKeyboardBuilder()
         for category in categories:
-            builder.row(InlineKeyboardButton(text=category.name, callback_data=f"select_category:{category.cat_id}"))
+            builder.row(InlineKeyboardButton(text=catalog_button_name(category), callback_data=f"select_category:{category.cat_id}"))
         builder.row(self.telyx_button(tx.arrow_left, texts.ADMIN_TEXTS.back, "admin_panel"))
         return builder
     
     def subcategory_select_menu(self, texts, subcategories, is_for_add_position=False, is_for_edit_position=False, positions=None):
         builder = InlineKeyboardBuilder()
         for subcategory in subcategories:
-            builder.row(InlineKeyboardButton(text=subcategory.name, callback_data=f"select_subcategory:{subcategory.sub_cat_id}"))
+            builder.row(InlineKeyboardButton(text=catalog_button_name(subcategory), callback_data=f"select_subcategory:{subcategory.sub_cat_id}"))
         if is_for_edit_position:
             builder = self.position_select_menu(texts, positions, builder)
         if is_for_add_position:
@@ -209,7 +210,7 @@ class InlineButtons:
         if not builder:
             builder = InlineKeyboardBuilder()
         for position in positions:
-            builder.row(InlineKeyboardButton(text=position.name, callback_data=f"select_position:{position.pos_id}"))
+            builder.row(InlineKeyboardButton(text=catalog_button_name(position), callback_data=f"select_position:{position.pos_id}"))
         builder.row(self.telyx_button(tx.arrow_left, texts.ADMIN_TEXTS.back, "admin_panel"))
         return builder
 

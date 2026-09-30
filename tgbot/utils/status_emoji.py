@@ -17,10 +17,6 @@ def html_status(text):
     for token in TOKEN.finditer(text):
         result.append(SYMBOL.sub(replace, text[start:token.start()]))
         value = token.group(0)
-        if value.startswith('<tg-emoji'):
-            fallback = strip_tg_emoji(value)
-            if SYMBOL.fullmatch(fallback):
-                value = SYMBOL.sub(replace, fallback)
         result.append(value); start = token.end()
     result.append(SYMBOL.sub(replace, text[start:]))
     return ''.join(result)
@@ -47,10 +43,7 @@ def style_content(obj, bot):
                 if any(e.type in {'code', 'pre'} for e in overlaps):
                     continue
                 custom = next((e for e in overlaps if e.type == 'custom_emoji'), None)
-                if custom:
-                    if custom.offset == offset and custom.length == length:
-                        styled[styled.index(custom)] = custom.model_copy(update={'custom_emoji_id': STATUS_IDS[match.group()[0]]})
-                else:
+                if custom is None:
                     styled.append(MessageEntity(type='custom_emoji', offset=offset, length=length,
                                                custom_emoji_id=STATUS_IDS[match.group()[0]]))
             if styled:
@@ -75,6 +68,8 @@ class StatusEmojiMiddleware(BaseRequestMiddleware):
         rows = inline if inline is not None else getattr(markup, 'keyboard', ())
         for row in rows:
             for button in row:
+                if '<tg-emoji' in button.text:
+                    continue
                 label = strip_tg_emoji(button.text)
                 match = SYMBOL.search(label)
                 emoji_id = STATUS_IDS[match.group()[0]] if match else BUTTON_STATUS_IDS.get(label)

@@ -1,4 +1,5 @@
-﻿from decimal import Decimal
+from tgbot.utils.catalog_emoji import catalog_name
+from decimal import Decimal
 from html import escape
 import json
 import telyx as tx
@@ -82,7 +83,7 @@ async def digital_webapp_data(
             price = float(getattr(position, f"price_{settings.currency.value}") or 0)
             await state.clear()
             return await message.answer(
-                f"<b>{escape(position.name or 'Товар')}</b>\n"
+                f"<b>{catalog_name(position)}</b>\n"
                 f"Цена: <b>{price:g} {BotConfig.CURRENCIES[settings.currency.value]['sign']}</b>\n\n"
                 f"{escape(position.description or '')}",
                 reply_markup=InlineKeyboardMarkup(inline_keyboard=[

@@ -1,3 +1,4 @@
+from tgbot.utils.catalog_emoji import catalog_button_name
 from tgbot.utils.mini_app_menu import menu_enabled, valid_url
 from aiogram.types import ReplyKeyboardMarkup, KeyboardButton, InlineKeyboardButton, WebAppInfo
 from aiogram.utils.keyboard import InlineKeyboardBuilder
@@ -163,7 +164,7 @@ class InlineButtons:
     def select_category(self, texts, categories):
         builder = InlineKeyboardBuilder()
         for category in categories:
-            builder.add(InlineKeyboardButton(text=category.name, callback_data=f"open_category:{category.cat_id}"))
+            builder.add(InlineKeyboardButton(text=catalog_button_name(category), callback_data=f"open_category:{category.cat_id}"))
         builder.adjust(2)
         builder.row(self.telyx_button(tx.arrow_left, texts.BUTTONS.back, "back_to_user_menu"))
         return builder
@@ -173,7 +174,7 @@ class InlineButtons:
         settings = await config_file.DB.get_settings()
 
         for sub_category in subcategories:
-            builder.add(InlineKeyboardButton(text=sub_category.name, callback_data=f"open_subcategory:{sub_category.sub_cat_id}"))
+            builder.add(InlineKeyboardButton(text=catalog_button_name(sub_category), callback_data=f"open_subcategory:{sub_category.sub_cat_id}"))
         for position in positions:
             if position.sub_cat_id is not None:
                 continue
@@ -183,7 +184,7 @@ class InlineButtons:
             else:
                 items = f"{len(await config_file.DB.get_items(pos_id=position.pos_id))} {texts.BUTTONS.pcs}"
             builder.add(InlineKeyboardButton(text=texts.BUTTONS.position_button_name.format(
-                name=position.name,
+                name=catalog_button_name(position),
                 price=price,
                 curr=config_file.BotConfig.CURRENCIES[settings.currency.value]['sign'],
                 items=items,
@@ -202,7 +203,7 @@ class InlineButtons:
             else:
                 items = f"{len(await config_file.DB.get_items(pos_id=position.pos_id))} {texts.BUTTONS.pcs}"
             builder.add(InlineKeyboardButton(text=texts.BUTTONS.position_button_name.format(
-                name=position.name,
+                name=catalog_button_name(position),
                 price=price,
                 curr=config_file.BotConfig.CURRENCIES[settings.currency.value]['sign'],
                 items=items,

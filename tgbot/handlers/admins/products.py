@@ -1,3 +1,5 @@
+from tgbot.utils.catalog_emoji import catalog_name
+from tgbot.utils.catalog_emoji import name_fields
 from aiogram import F
 from aiogram.filters import StateFilter
 from aiogram.types import Message, CallbackQuery
@@ -36,9 +38,9 @@ async def add_category(call: CallbackQuery, state: FSMContext, BotTexts: BTs.Ru 
 
 @adminRouter.message(StateFilter(adminStates.AdminProductsManage.enter_category_name))
 async def enter_category_name(msg: Message, state: FSMContext, BotTexts: BTs.Ru | BTs.En | BTs.Ua):
-    if len(msg.text) <= 64:
+    if msg.text and len(msg.text) <= 64:
         await state.clear()
-        await DB.add_category(msg.text)
+        await DB.add_category(**name_fields(msg))
         await utils.send_admins("category_is_created_alert",
             username=msg.from_user.mention_html(),
             name=msg.text,
@@ -67,7 +69,7 @@ async def select_category_for_edit(call: CallbackQuery, state: FSMContext, BotTe
     await state.clear()
     category = await DB.get_category(cat_id=int(call.data.split(":")[1]))
     await safe_edit_text(call.message, BotTexts.ADMIN_TEXTS.category_text.format(
-        name=category.name,
+        name=catalog_name(category),
         cat_id=category.cat_id,
     ), reply_markup=BotButtons.ADMIN_INLINE.category_edit(BotTexts, category.cat_id).as_markup())
 
@@ -78,32 +80,32 @@ async def edit_category_callback(call: CallbackQuery, state: FSMContext, BotText
     data = call.data.split(":")
     category = await DB.get_category(cat_id=int(data[1]))
     if data[2] == "name":
-        await safe_edit_text(call.message, BotTexts.ADMIN_TEXTS.enter_new_name_for_category.format(name=category.name),
+        await safe_edit_text(call.message, BotTexts.ADMIN_TEXTS.enter_new_name_for_category.format(name=catalog_name(category)),
                                  reply_markup=BotButtons.ADMIN_INLINE.custom_button(BotTexts, "products_manage").as_markup())
         await state.set_state(adminStates.AdminProductsManage.enter_new_name_for_category)
-        await state.update_data(category_id=category.cat_id, old_name=category.name)
+        await state.update_data(category_id=category.cat_id, old_name=catalog_name(category))
     elif data[2] == "del":
         await call.message.delete()
         await DB.delete_category(category.cat_id)
         await utils.send_admins("category_is_deleted_alert",
             username=call.from_user.mention_html(),
-            name=category.name,
+            name=catalog_name(category),
         )
         await call.message.answer(BotTexts.ADMIN_TEXTS.products_manage_text, 
                                  reply_markup=BotButtons.ADMIN_INLINE.products_manage(BotTexts).as_markup())
     else:
         # delete
-        await safe_edit_text(call.message, BotTexts.ADMIN_TEXTS.confirm_category_delete.format(name=category.name),
+        await safe_edit_text(call.message, BotTexts.ADMIN_TEXTS.confirm_category_delete.format(name=catalog_name(category)),
                                      reply_markup=BotButtons.ADMIN_INLINE.confirm(f"edit_category:{category.cat_id}:del", "products_manage").as_markup())
 
 
 
 @adminRouter.message(StateFilter(adminStates.AdminProductsManage.enter_new_name_for_category))
 async def enter_new_name_for_category(msg: Message, state: FSMContext, BotTexts: BTs.Ru | BTs.En | BTs.Ua):
-    if len(msg.text) <= 64:
+    if msg.text and len(msg.text) <= 64:
         data = await state.get_data()
         await state.clear()
-        await DB.update_category(category_id=int(data['category_id']), name=msg.text)
+        await DB.update_category(category_id=int(data['category_id']), **name_fields(msg))
         await utils.send_admins("category_is_edited_alert",
             username=msg.from_user.mention_html(),
             old_name=data['old_name'],
@@ -161,14 +163,14 @@ async def select_category_for_add_sub(call: CallbackQuery, state: FSMContext, Bo
 
 @adminRouter.message(StateFilter(adminStates.AdminProductsManage.enter_subcategory_name))
 async def enter_subcategory_name(msg: Message, state: FSMContext, BotTexts: BTs.Ru | BTs.En | BTs.Ua):
-    if len(msg.text) <= 64:
+    if msg.text and len(msg.text) <= 64:
         category: models.Category = (await state.get_data())['category']
         await state.clear()
-        await DB.add_subcategory(msg.text, category.cat_id)
+        await DB.add_subcategory(category_id=category.cat_id, **name_fields(msg))
         await utils.send_admins("subcategory_is_created_alert",
             username=msg.from_user.mention_html(),
             name=msg.text,
-            cat_name=category.name,
+            cat_name=catalog_name(category),
         )
         await msg.answer(BotTexts.ADMIN_TEXTS.products_manage_text, 
                                  reply_markup=BotButtons.ADMIN_INLINE.products_manage(BotTexts).as_markup())
@@ -210,9 +212,9 @@ async def select_sub_for_edit(call: CallbackQuery, state: FSMContext, BotTexts: 
     await state.clear()
     subcategory = await DB.get_subcategory(sub_cat_id=int(call.data.split(":")[1]))
     await safe_edit_text(call.message, BotTexts.ADMIN_TEXTS.subcategory_text.format(
-        name=subcategory.name,
+        name=catalog_name(subcategory),
         sub_cat_id=subcategory.sub_cat_id,
-        cat_name=category.name,
+        cat_name=catalog_name(category),
         cat_id=category.cat_id,
     ), reply_markup=BotButtons.ADMIN_INLINE.category_edit(BotTexts, subcategory.sub_cat_id, True).as_markup())
 
@@ -223,16 +225,16 @@ async def edit_subcategory(call: CallbackQuery, state: FSMContext, BotTexts: BTs
     data = call.data.split(":")
     subcategory = await DB.get_subcategory(sub_cat_id=int(data[1]))
     if data[2] == "name":
-        await safe_edit_text(call.message, BotTexts.ADMIN_TEXTS.enter_new_name_for_subcategory.format(name=subcategory.name),
+        await safe_edit_text(call.message, BotTexts.ADMIN_TEXTS.enter_new_name_for_subcategory.format(name=catalog_name(subcategory)),
                                  reply_markup=BotButtons.ADMIN_INLINE.custom_button(BotTexts, "products_manage").as_markup())
         await state.set_state(adminStates.AdminProductsManage.enter_new_name_for_sub)
-        await state.update_data(subcategory_id=subcategory.sub_cat_id, old_name=subcategory.name)
+        await state.update_data(subcategory_id=subcategory.sub_cat_id, old_name=catalog_name(subcategory))
     elif data[2] == "del":
         await call.message.delete()
         await DB.delete_subcategory(subcategory.sub_cat_id)
         await utils.send_admins("subcategory_is_deleted_alert",
             username=call.from_user.mention_html(),
-            name=subcategory.name,
+            name=catalog_name(subcategory),
         )
         await call.message.answer(BotTexts.ADMIN_TEXTS.products_manage_text, 
                                  reply_markup=BotButtons.ADMIN_INLINE.products_manage(BotTexts).as_markup())
@@ -244,7 +246,7 @@ async def edit_subcategory(call: CallbackQuery, state: FSMContext, BotTexts: BTs
         await state.update_data(subcategory=subcategory)
     else:
         # delete
-        await safe_edit_text(call.message, BotTexts.ADMIN_TEXTS.confirm_subcategory_delete.format(name=subcategory.name),
+        await safe_edit_text(call.message, BotTexts.ADMIN_TEXTS.confirm_subcategory_delete.format(name=catalog_name(subcategory)),
                                      reply_markup=BotButtons.ADMIN_INLINE.confirm(f"edit_subcategory:{subcategory.sub_cat_id}:del", "products_manage").as_markup())
 
 
@@ -258,14 +260,14 @@ async def select_category_for_move_sub(call: CallbackQuery, state: FSMContext, B
     await call.message.delete()
     await utils.send_admins("subcategory_has_been_moved_deleted_alert",
         username=call.from_user.mention_html(),
-        sub_name=subcategory.name,
-        old_cat_name=category.name,
-        new_cat_name=new_category.name
+        sub_name=catalog_name(subcategory),
+        old_cat_name=catalog_name(category),
+        new_cat_name=catalog_name(new_category)
     )
     await call.message.answer(BotTexts.ADMIN_TEXTS.subcategory_text.format(
-        name=subcategory.name,
+        name=catalog_name(subcategory),
         sub_cat_id=subcategory.sub_cat_id,
-        cat_name=new_category.name,
+        cat_name=catalog_name(new_category),
         cat_id=new_category.cat_id,
     ), reply_markup=BotButtons.ADMIN_INLINE.category_edit(BotTexts, subcategory.sub_cat_id, True).as_markup())
 
@@ -273,10 +275,10 @@ async def select_category_for_move_sub(call: CallbackQuery, state: FSMContext, B
 
 @adminRouter.message(StateFilter(adminStates.AdminProductsManage.enter_new_name_for_sub))
 async def enter_new_name_for_sub(msg: Message, state: FSMContext, BotTexts: BTs.Ru | BTs.En | BTs.Ua):
-    if len(msg.text) <= 64:
+    if msg.text and len(msg.text) <= 64:
         data = await state.get_data()
         await state.clear()
-        await DB.update_subcategory(subcategory_id=int(data['subcategory_id']), name=msg.text)
+        await DB.update_subcategory(subcategory_id=int(data['subcategory_id']), **name_fields(msg))
         await utils.send_admins("subcategory_is_edited_alert",
             username=msg.from_user.mention_html(),
             old_name=data['old_name'],
@@ -347,9 +349,9 @@ async def select_subcategory_for_add_position(call: CallbackQuery, state: FSMCon
 
 @adminRouter.message(StateFilter(adminStates.AdminProductsManage.enter_position_name))
 async def enter_position_name(msg: Message, state: FSMContext, BotTexts: BTs.Ru | BTs.En | BTs.Ua):
-    if len(msg.text) <= 64:
+    if msg.text and len(msg.text) <= 64:
         await state.set_state(adminStates.AdminProductsManage.enter_position_price)
-        await state.update_data(name=msg.text)
+        await state.update_data(**name_fields(msg))
         await msg.reply(BotTexts.ADMIN_TEXTS.enter_position_price,
                                  reply_markup=BotButtons.ADMIN_INLINE.custom_button(BotTexts, "products_manage").as_markup())
     else:
@@ -377,7 +379,7 @@ async def enter_position_item_type(call: CallbackQuery, state: FSMContext, BotTe
 
 @adminRouter.message(StateFilter(adminStates.AdminProductsManage.enter_position_description))
 async def enter_position_description(msg: Message, state: FSMContext, BotTexts: BTs.Ru | BTs.En | BTs.Ua):
-    if len(msg.text) <= 2000:
+    if msg.text and len(msg.text) <= 2000:
         await msg.reply(BotTexts.ADMIN_TEXTS.enter_position_photo, 
                     reply_markup=BotButtons.ADMIN_INLINE.custom_button(BotTexts, "products_manage").as_markup())
         await state.set_state(adminStates.AdminProductsManage.enter_position_photo)
@@ -415,14 +417,15 @@ async def enter_position_type(msg: Message, state: FSMContext, BotTexts: BTs.Ru 
         data.get("subcategory_id"),
         position_type,
         data['item_type'],
+        name_html=data.get('name_html'),
     )
     category = await DB.get_category(cat_id=int(data.get("category_id")))
     subcategory = await DB.get_subcategory(sub_cat_id=int(data.get("subcategory_id"))) if data.get("subcategory_id") else None
     await utils.send_admins("position_is_created_alert",
         username=msg.from_user.mention_html(),
-        cat_name=category.name,
+        cat_name=catalog_name(category),
         cat_id=category.cat_id,
-        subcategory=f"<code>{subcategory.name}</code> [<code>{subcategory.sub_cat_id}</code>]" if subcategory else None,
+        subcategory=f"<code>{catalog_name(subcategory)}</code> [<code>{subcategory.sub_cat_id}</code>]" if subcategory else None,
         name=data['name'],
         price=data['price'],
         curr=BotConfig.CURRENCIES[currency]['sign'],
@@ -497,10 +500,10 @@ async def get_position_info(BotTexts, position, message, is_edit=True):
     currency = (await DB.get_settings()).currency.value
     price = getattr(position, f"price_{currency}")
     text = BotTexts.ADMIN_TEXTS.position_text.format(
-            pos_name=position.name,
-            cat_name=category.name,
+            pos_name=catalog_name(position),
+            cat_name=catalog_name(category),
             cat_id=category.cat_id,
-            subcategory=f"<code>{subcategory.name}</code> [<code>{subcategory.sub_cat_id}</code>]" if subcategory else None,
+            subcategory=f"<code>{catalog_name(subcategory)}</code> [<code>{subcategory.sub_cat_id}</code>]" if subcategory else None,
             price=price,
             curr=BotConfig.CURRENCIES[currency]['sign'],
             position_type=BotTexts.ADMIN_TEXTS.position_type[position.is_infinity],
@@ -553,13 +556,13 @@ async def position_edit(call: CallbackQuery, state: FSMContext, BotTexts: BTs.Ru
         await call.message.answer(BotTexts.ADMIN_TEXTS.enter_position_type)
         await state.set_state(adminStates.AdminProductsManage.enter_new_position_type)
     elif data[2] == "delete":
-        await call.message.answer(BotTexts.ADMIN_TEXTS.confirm_position_delete.format(name=position.name),
+        await call.message.answer(BotTexts.ADMIN_TEXTS.confirm_position_delete.format(name=catalog_name(position)),
                                      reply_markup=BotButtons.ADMIN_INLINE.confirm(f"position_edit:{position.pos_id}:del", "products_manage").as_markup())
     elif data[2] == "del":
         await DB.delete_position(position.pos_id)
         await utils.send_admins("position_is_deleted_alert",
             username=call.from_user.mention_html(),
-            name=position.name,
+            name=catalog_name(position),
         )
         await call.message.answer(BotTexts.ADMIN_TEXTS.products_manage_text, 
                                   reply_markup=BotButtons.ADMIN_INLINE.products_manage(BotTexts).as_markup())
@@ -569,7 +572,7 @@ async def position_edit(call: CallbackQuery, state: FSMContext, BotTexts: BTs.Ru
                                   reply_markup=BotButtons.ADMIN_INLINE.category_select_menu(BotTexts, categories).as_markup())
         await state.set_state(adminStates.AdminProductsManage.select_category_for_move_position)
     elif data[2] == "clear_items":
-        await call.message.answer(BotTexts.ADMIN_TEXTS.confirm_position_items_delete.format(name=position.name),
+        await call.message.answer(BotTexts.ADMIN_TEXTS.confirm_position_items_delete.format(name=catalog_name(position)),
                                   reply_markup=BotButtons.ADMIN_INLINE.confirm(f"position_edit:{position.pos_id}:confirm_delete_items", "products_manage").as_markup())
     elif data[2] == "upload_items":
         await call.message.answer("<b>⚙️ Отправьте товар: текст, фото, файл, видео, аудио или другое вложение. Форматирование и премиум-эмодзи сохраняются. Загружайте по одному сообщению.</b>",
@@ -598,7 +601,7 @@ async def position_edit(call: CallbackQuery, state: FSMContext, BotTexts: BTs.Ru
                 file.close()
 
             await call.message.answer_document(document=FSInputFile(f"position_items_{position.pos_id}.txt"), 
-                                            caption=BotTexts.ADMIN_TEXTS.list_of_items.format(name=position.name))
+                                            caption=BotTexts.ADMIN_TEXTS.list_of_items.format(name=catalog_name(position)))
             os.remove(f"position_items_{position.pos_id}.txt")
         except:
             print_exc()
@@ -609,7 +612,7 @@ async def position_edit(call: CallbackQuery, state: FSMContext, BotTexts: BTs.Ru
         await DB.delete_position_items(position.pos_id)
         await utils.send_admins("position_items_is_deleted_alert",
             username=call.from_user.mention_html(),
-            name=position.name,
+            name=catalog_name(position),
         )
         await get_position_info(BotTexts, await DB.get_position(pos_id=position.pos_id), call.message, False)
     await state.update_data(position=position)
@@ -630,10 +633,10 @@ async def enter_new_position_price(msg: Message, state: FSMContext, BotTexts: BT
 
 @adminRouter.message(StateFilter(adminStates.AdminProductsManage.enter_new_position_name))
 async def enter_new_position_name(msg: Message, state: FSMContext, BotTexts: BTs.Ru | BTs.En | BTs.Ua):
-    if len(msg.text) <= 64:
+    if msg.text and len(msg.text) <= 64:
         position = (await state.get_data())['position']
         await state.clear()
-        await DB.update_position(position_id=position.pos_id, name=msg.text)
+        await DB.update_position(position_id=position.pos_id, **name_fields(msg))
         await get_position_info(BotTexts, await DB.get_position(pos_id=position.pos_id), msg, False)
     else:
         await msg.reply(BotTexts.ADMIN_TEXTS.name_error)
@@ -641,7 +644,7 @@ async def enter_new_position_name(msg: Message, state: FSMContext, BotTexts: BTs
 
 @adminRouter.message(StateFilter(adminStates.AdminProductsManage.enter_new_position_description))
 async def enter_new_position_description(msg: Message, state: FSMContext, BotTexts: BTs.Ru | BTs.En | BTs.Ua):
-    if len(msg.text) <= 2000:
+    if msg.text and len(msg.text) <= 2000:
         position = (await state.get_data())['position']
         await state.clear()
         await DB.update_position(position_id=position.pos_id, description=None if msg.text == "-" else msg.html_text)

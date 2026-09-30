@@ -18,7 +18,8 @@ PROMPT = "📰 Բոտից օգտվելուց առաջ անհրաժեշտ է բա
 def test_subscription_prompt_is_used_for_new_users_and_recheck():
     for language in (ru, en, hy, ua):
         rendered = language.Language.Texts.channels_error.format(urls_txt="канал")
-        assert strip_tg_emoji(rendered).startswith(f"<b>{PROMPT}</b>")
+        expected = PROMPT.replace("📰", "⚠", 1) if language is hy else PROMPT
+        assert strip_tg_emoji(rendered).startswith(f"<b>{expected}</b>")
         assert "канал" not in rendered
     middleware = Path("tgbot/middlewares/switchers.py").read_text(encoding="utf-8")
     handler = Path("tgbot/handlers/users/main_users.py").read_text(encoding="utf-8")

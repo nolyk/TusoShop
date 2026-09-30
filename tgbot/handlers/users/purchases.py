@@ -1,3 +1,4 @@
+from tgbot.utils.catalog_emoji import catalog_name
 from aiogram import F
 from aiogram.filters import StateFilter
 from aiogram.types import Message, CallbackQuery
@@ -33,9 +34,9 @@ async def open_category(call: CallbackQuery, state: FSMContext, BotTexts: BTs.Ru
             BotTexts, sub_categories, positions
         )).as_markup()
         if call.data.startswith("open_category"):
-            await edit_menu(call, BotTexts.TEXTS.current_cat.format(name=category.name), kb, f"category:{category_id}")
+            await edit_menu(call, BotTexts.TEXTS.current_cat.format(name=catalog_name(category)), kb, f"category:{category_id}")
         else:
-            await call.message.answer(BotTexts.TEXTS.current_cat.format(name=category.name), reply_markup=kb)
+            await call.message.answer(BotTexts.TEXTS.current_cat.format(name=catalog_name(category)), reply_markup=kb)
     else:
         if call.data.startswith("open_category"):
             await edit_menu(
@@ -63,10 +64,10 @@ async def open_subcategory(call: CallbackQuery, state: FSMContext, BotTexts: BTs
         category = await DB.get_category(cat_id=positions[0].cat_id)
         kb = (await BotButtons.USERS_INLINE.select_positions(BotTexts, positions)).as_markup()
         if call.data.startswith("open_subcategory"):
-            await edit_menu(call, BotTexts.TEXTS.current_cat.format(name=f"{category.name} - {subcategory.name}"),
+            await edit_menu(call, BotTexts.TEXTS.current_cat.format(name=f"{catalog_name(category)} - {catalog_name(subcategory)}"),
                             kb, f"subcategory:{subcategory_id}")
         else:
-            await call.message.answer(BotTexts.TEXTS.current_cat.format(name=f"{category.name} - {subcategory.name}"), reply_markup=kb)
+            await call.message.answer(BotTexts.TEXTS.current_cat.format(name=f"{catalog_name(category)} - {catalog_name(subcategory)}"), reply_markup=kb)
     else:
         if call.data.startswith("open_subcategory"):
             await edit_menu(
@@ -98,8 +99,8 @@ async def open_position(call: CallbackQuery, state: FSMContext, BotTexts: BTs.Ru
     else:
         items = f"{len(await DB.get_items(pos_id=position.pos_id))} {BotTexts.BUTTONS.pcs}"
     text = BotTexts.TEXTS.open_position_text.format(
-        cat_name=f"{category.name} - {subcategory.name}" if subcategory else category.name,
-        pos_name=position.name,
+        cat_name=f"{catalog_name(category)} - {catalog_name(subcategory)}" if subcategory else catalog_name(category),
+        pos_name=catalog_name(position),
         price=price,
         cur=BotConfig.CURRENCIES[settings.currency.value]["sign"],
         items=items,
@@ -156,7 +157,7 @@ async def buy_position(call: CallbackQuery, state: FSMContext, BotTexts: BTs.Ru 
     if items == 1:
         await call.message.answer(
             BotTexts.TEXTS.confirm_buy_products.format(
-                position_name=position.name,
+                position_name=catalog_name(position),
                 count=1,
                 price=price,
                 curr=curr,
@@ -169,7 +170,7 @@ async def buy_position(call: CallbackQuery, state: FSMContext, BotTexts: BTs.Ru 
 
         await call.message.answer(
             BotTexts.TEXTS.enter_count_items_for_buy.format(
-                pos_name=position.name,
+                pos_name=catalog_name(position),
                 items=items,
                 price=price,
                 curr=curr,
@@ -198,7 +199,7 @@ async def enter_count_products_for_buy(msg: Message, state: FSMContext, BotTexts
         count = len(items)
 
     send_message = BotTexts.TEXTS.enter_count_items_for_buy.format(
-                pos_name=position.name,
+                pos_name=catalog_name(position),
                 items=count,
                 price=price,
                 curr=curr,
@@ -233,7 +234,7 @@ async def enter_count_products_for_buy(msg: Message, state: FSMContext, BotTexts
     await state.clear()
     await msg.answer(
         BotTexts.TEXTS.confirm_buy_products.format(
-            position_name=position.name,
+            position_name=catalog_name(position),
             count=count,
             price=amount_pay,
             curr=curr,
@@ -336,7 +337,7 @@ async def user_buy_confirm(call: CallbackQuery, state: FSMContext, BotTexts: BTs
     await call.message.answer(
         BotTexts.TEXTS.successful_buying.format(
             receipt=receipt,
-            position_name=position.name,
+            position_name=catalog_name(position),
             purchase_count=purchase_count,
             purchase_price=purchase_price,
             curr=curr,
@@ -349,7 +350,7 @@ async def user_buy_confirm(call: CallbackQuery, state: FSMContext, BotTexts: BTs
             user_id=call.from_user.id,
             amount=purchase_price,
             curr=curr,
-            pos_name=position.name,
+            pos_name=catalog_name(position),
             receipt=receipt,
             count=purchase_count
         )

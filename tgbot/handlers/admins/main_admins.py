@@ -1,3 +1,4 @@
+from tgbot.utils.catalog_emoji import catalog_name
 import math
 from tgbot.utils.mini_app_menu import toggle_mini_app_menu
 from aiogram.exceptions import TelegramAPIError
@@ -23,13 +24,13 @@ import os
 async def get_data_for_mail_button(data, value):
     if data == "category":
         category = await DB.get_category(cat_id=int(value))
-        return f"<code>{category.name}</code> [<code>{category.cat_id}</code>]"
+        return f"<code>{catalog_name(category)}</code> [<code>{category.cat_id}</code>]"
     elif data == "subcategory": 
         subcategory = await DB.get_subcategory(sub_cat_id=int(value))
-        return f"<code>{subcategory.name}</code> [<code>{subcategory.sub_cat_id}</code>]"
+        return f"<code>{catalog_name(subcategory)}</code> [<code>{subcategory.sub_cat_id}</code>]"
     elif data == "position":
         position = await DB.get_position(pos_id=int(value))
-        return f"<code>{position.name}</code> [<code>{position.pos_id}</code>]"
+        return f"<code>{catalog_name(position)}</code> [<code>{position.pos_id}</code>]"
     elif data == "contest":
         contest = await DB.get_contest(contest_id=int(value))
         return f"<code>{contest.prize}{BotConfig.CURRENCIES[contest.currency.value]['sign']}</code> [<code>{contest.contest_id}</code>]"
@@ -920,7 +921,7 @@ async def enter_receipt(msg: Message, state: FSMContext, BotTexts: BTs.Ru | BTs.
         await msg.reply(BotTexts.ADMIN_TEXTS.receipt_purchase.format(
             receipt=msg.text,
             username=f"<a href='tg://user?id={user.user_id}'>{user.full_name}</a>",
-            pos_name=position.name,
+            pos_name=catalog_name(position),
             sum=price,
             curr=BotConfig.CURRENCIES[settings.currency.value]["sign"],
             date=purchase.date,

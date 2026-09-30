@@ -179,6 +179,7 @@ class Position(Base):
 
     pos_id = Column(BigInteger, primary_key=True, autoincrement=True)
     name = Column(String)
+    name_html = Column(String)
     price_rub  = Column(Float)
     price_usd  = Column(Float)
     price_eur  = Column(Float)
@@ -197,6 +198,7 @@ class SubCategory(Base):
     sub_cat_id = Column(BigInteger, primary_key=True, autoincrement=True)
     cat_id = Column(BigInteger)
     name = Column(String)
+    name_html = Column(String)
 
 
 class Promocode(Base):
@@ -313,6 +315,7 @@ class Category(Base):
 
     cat_id = Column(BigInteger, primary_key=True)
     name = Column(String)
+    name_html = Column(String)
 
 
 class ActivePromocode(Base):
@@ -502,6 +505,10 @@ async def async_main() -> None:
         if payment_column.fetchone()[0] == 0:
             await conn.execute(text('ALTER TABLE payments ADD COLUMN xrocket BOOLEAN DEFAULT false;'))
         migrations = (
+            "ALTER TABLE categories ADD COLUMN IF NOT EXISTS name_html VARCHAR;",
+            "ALTER TABLE sub_categories ADD COLUMN IF NOT EXISTS name_html VARCHAR;",
+            "ALTER TABLE positions ADD COLUMN IF NOT EXISTS name_html VARCHAR;",
+
             "ALTER TABLE settings ADD COLUMN IF NOT EXISTS mini_app_menu_enabled BOOLEAN NOT NULL DEFAULT true;",
             "ALTER TABLE users ADD COLUMN IF NOT EXISTS balance_amd DOUBLE PRECISION DEFAULT 0;",
             "ALTER TABLE users ADD COLUMN IF NOT EXISTS ref_earn_amd DOUBLE PRECISION DEFAULT 0;",

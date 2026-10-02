@@ -474,7 +474,7 @@ Enter new value:</b>
 💰 Price: <code>{price}{curr}</code>
 🪙 Type: <code>{position_type}</code>
 🔰 Items type: <code>{item_type}</code>
-🧾 Description: <code>{description}</code></b>
+🧾 Description: {description}</b>
         """
         select_position = "<b>❗ Select position:</b>"
         position_text = """
@@ -484,7 +484,7 @@ Enter new value:</b>
 💰 Price: <code>{price}{curr}</code>
 🪙 Type: <code>{position_type}</code>
 🔰 Items type: <code>{item_type}</code>
-🧾 Description: <code>{description}</code>
+🧾 Description: {description}
 🛒 Number of items: <code>{items_count} pcs.</code>
 ❗ Select what you want to change:</b>
         """

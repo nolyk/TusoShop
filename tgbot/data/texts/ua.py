@@ -474,7 +474,7 @@ class Language:
 💰 Цена: <code>{price}{curr}</code>
 🪙 Тип позиції: <code>{position_type}</code>
 🔰 Тип товару позиції: <code>{item_type}</code>
-🧾 Опис: <code>{description}</code></b>
+🧾 Опис: {description}</b>
         """
         select_position = "<b>❗ Виберіть позицію:</b>"
         position_text = """
@@ -484,7 +484,7 @@ class Language:
 💰 Цена: <code>{price}{curr}</code>
 🪙 Тип позиції: <code>{position_type}</code>
 🔰 Тип товару позиції: <code>{item_type}</code>
-🧾 Опис: <code>{description}</code>
+🧾 Опис: {description}
 🛒 Кількість товарів: <code>{items_count} шт.</code>
 ❗ Виберіть, що хочете змінити:</b>
         """

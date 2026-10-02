@@ -17,7 +17,9 @@ from tgbot.utils import models
 from tgbot.utils import item_content
 
 from traceback import print_exc
+from html import unescape
 import os
+import re
 
 
 @adminRouter.callback_query(F.data == "products_manage")
@@ -508,7 +510,7 @@ async def get_position_info(BotTexts, position, message, is_edit=True):
             curr=BotConfig.CURRENCIES[currency]['sign'],
             position_type=BotTexts.ADMIN_TEXTS.position_type[position.is_infinity],
             item_type=BotTexts.ADMIN_TEXTS.position_type[position.item_type],
-            description=position.description,
+            description=position.description or "-",
             items_count=items_count,
         )
     if position.photo and position.photo != "-":
@@ -516,8 +518,13 @@ async def get_position_info(BotTexts, position, message, is_edit=True):
             await message.delete()
         except TelegramBadRequest:
             pass
-        await message.answer_photo(caption=text, photo=position.photo,
-        reply_markup=BotButtons.ADMIN_INLINE.position_edit(BotTexts, position.pos_id).as_markup())
+        keyboard = BotButtons.ADMIN_INLINE.position_edit(BotTexts, position.pos_id).as_markup()
+        visible_text = unescape(re.sub(r"<[^>]+>", "", text))
+        if len(visible_text) <= 1024:
+            await message.answer_photo(caption=text, photo=position.photo, reply_markup=keyboard)
+        else:
+            await message.answer_photo(photo=position.photo)
+            await message.answer(text=text, reply_markup=keyboard)
     else:
         if is_edit:
             await message.edit_text(text=text,

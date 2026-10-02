@@ -202,16 +202,20 @@ async def end_contest(contest: Contest):
     await DB.delete_contest(contest.contest_id)
     for winner in winners_ids:
         user = await DB.get_user(user_id=winner)
-        
-        member = await bot.get_chat(winner)
-        await send_admins("contest_is_finished_alert", prize=contest.prize, cur=cur)
-        await send_admins(f"<b><a href='tg://user?id={member.id}'>{member.full_name}</a> [<code>{member.id}</code>]</b>", False)
-        await send_admins("prize_given")
+        if user is None:
+            continue
         amounts = await get_currency_amounts(contest.prize, currency)
         await DB.update_user(user_id=winner, **{
             f"balance_{code}": getattr(user, f"balance_{code}") + amount
             for code, amount in amounts.items()
         })
+        try:
+            member = await bot.get_chat(winner)
+            await send_admins("contest_is_finished_alert", prize=contest.prize, cur=cur)
+            await send_admins(f"<b><a href='tg://user?id={member.id}'>{member.full_name}</a> [<code>{member.id}</code>]</b>", False)
+            await send_admins("prize_given")
+        except Exception:
+            pass
         try:
             texts = await get_language(winner)
             await bot.send_message(winner, texts.TEXTS.u_win_the_contest.format(
@@ -232,12 +236,12 @@ async def check_contests() -> None:
             contest_id = contest.contest_id
             now_time = time.time()
             members = await DB.get_contest_members_id(contest_id)
-            if len(members) == contest.members_num:
-                await end_contest(contest_id)
-            elif contest.end_time < now_time:
-                await end_contest(contest)
-            else:
-                continue
+            if len(members) >= contest.members_num or contest.end_time < now_time:
+                try:
+                    await end_contest(contest)
+                except Exception:
+                    from traceback import print_exc
+                    print_exc()
             
 
 # Получение класса языка для пользователя

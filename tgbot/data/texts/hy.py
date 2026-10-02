@@ -124,8 +124,8 @@ class Language:
         no_products = "❌ Այս պահին ապրանքներ չկան։"
         open_position_text = '<b><tg-emoji emoji-id="5472189467869619770">🛒</tg-emoji> Կատեգորիա՝ <code>{cat_name}</code>\n\n<tg-emoji emoji-id="5472382354850881695">🛍</tg-emoji> Ապրանք՝ <code>{pos_name}</code>\n<tg-emoji emoji-id="5474129800949964546">🪙</tg-emoji> Գին՝ <code>{price}{cur}</code>\n<tg-emoji emoji-id="5471946243871645459">🔶</tg-emoji> Հասանելի քանակ՝ <code>{items}</code></b>\n\n{desc}'
         no_balance_for_buying = "❗ Գնելու համար բավարար միջոցներ չունեք։ Լիցքավորեք հաշվեկշիռը։"
-        confirm_buy_products = "<b>❓ Վստա՞հ եք, որ ցանկանում եք գնել ապրանքը։</b>\n\n- Ապրանք՝ <code>{position_name}</code>\n- Քանակ՝ <code>{count} հատ</code>\n- Ընդհանուր գումար՝ <code>{price}{curr}</code>"
-        enter_count_items_for_buy = "<b>❗ Մուտքագրեք գնվող ապրանքների քանակը՝</b>\n⚠️ <code>1</code>-ից <code>{items}</code>\n\n- Ապրանք՝ <code>{pos_name}</code> — <code>{price}{curr}</code>\n- Ձեր հաշվեկշիռը՝ <code>{balance}{curr}</code>"
+        confirm_buy_products = '<b><tg-emoji emoji-id="6181742933029430549">❓</tg-emoji> Վստա՞հ եք, որ ցանկանում եք գնել ապրանքը։</b>\n\n- Ապրանք՝ <code>{position_name}</code>\n- Քանակ՝ <code>{count} հատ</code>\n- Ընդհանուր գումար՝ <code>{price}{curr}</code>'
+        enter_count_items_for_buy = '<b><tg-emoji emoji-id="6181742933029430549">❓</tg-emoji> Մուտքագրեք գնվող ապրանքների քանակը՝</b>\n<tg-emoji emoji-id="6181666851978748540">⚠</tg-emoji> <code>1</code>-ից <code>{items}</code>\n\n- Ապրանք՝ <code>{pos_name}</code> — <code>{price}{curr}</code>\n- Ձեր հաշվեկշիռը՝ <code>{balance}{curr}</code>'
         incorrect_data = "<b>❌ Մուտքագրված տվյալները սխալ են։</b>"
         data_was_edit = "<b>❗ Ընտրված ապրանքը սպառվել է։</b>"
         incorrect_count_items = "<b>❌ Ապրանքների քանակը սխալ է։</b>"

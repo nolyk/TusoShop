@@ -244,7 +244,7 @@ async def contest_enter(call: CallbackQuery, state: FSMContext, BotTexts: BTs.Ru
         if len(contest_members) == contest.members_num:
             if call.from_user.id not in contest_members:
                 await call.answer(BotTexts.TEXTS.u_didnt_have_time_to_enter_contest, True)
-            return utils.end_contest(contest)
+            return await utils.end_contest(contest)
         if call.from_user.id not in contest_members:
             await DB.add_contest_member(call.from_user.id, contest_id)
             await utils.send_admins(
@@ -257,7 +257,7 @@ async def contest_enter(call: CallbackQuery, state: FSMContext, BotTexts: BTs.Ru
             await call.answer(BotTexts.TEXTS.success, True)
             contest_members_new = await DB.get_contest_members_id(contest_id)
             if len(contest_members_new) == contest.members_num:
-                return utils.end_contest(contest)
+                return await utils.end_contest(contest)
         else:
             await call.answer(BotTexts.TEXTS.u_already_enter_contest, True)
     else:

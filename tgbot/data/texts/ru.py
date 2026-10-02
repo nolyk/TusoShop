@@ -499,7 +499,7 @@ class Language:
 💰 Цена: <code>{price}{curr}</code>
 🪙 Тип позиции: <code>{position_type}</code>
 🔰 Тип товара позиции: <code>{item_type}</code>
-🧾 Описание: <code>{description}</code></b>
+🧾 Описание: {description}</b>
         """
         select_position = "<b>❗ Выберите позицию:</b>"
         position_text = """
@@ -509,7 +509,7 @@ class Language:
 💰 Цена: <code>{price}{curr}</code>
 🪙 Тип позиции: <code>{position_type}</code>
 🔰 Тип товара позиции: <code>{item_type}</code>
-🧾 Описание: <code>{description}</code>
+🧾 Описание: {description}
 🛒 Кол-во товаров: <code>{items_count} шт.</code>
 ❗ Выберите, что хотите изменить:</b>
         """

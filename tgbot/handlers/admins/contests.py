@@ -49,6 +49,7 @@ async def enter_new_value_contest(msg: Message, state: FSMContext, BotTexts: BTs
     if not msg.text.isdigit() and action != "channels_ids":
         await msg.reply(BotTexts.ADMIN_TEXTS.value_is_no_number, 
                         reply_markup=BotButtons.ADMIN_INLINE.custom_button(BotTexts, "contests_admin").as_markup())
+        return
     await state.clear() 
     
     if action == "channels_ids":
